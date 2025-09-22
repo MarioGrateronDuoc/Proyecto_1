@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario - Store Web</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <style>
+        .auth-container {
+            max-width: 600px;
+            margin: var(--spacing-8) auto;
+            padding: var(--spacing-8);
+            background-color: var(--color-white);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .auth-container h1 {
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+            color: var(--color-gray-800);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-4);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-base);
+        }
+        .form-group .error-message {
+            color: var(--color-error);
+            font-size: var(--font-size-sm);
+            margin-top: var(--spacing-1);
+            display: none;
+        }
+        
+        /* Fila horizontal para Región y Comuna */
+        .region-comuna-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: var(--spacing-4);
+        }
+        
+        @media (max-width: 768px) {
+            .region-comuna-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <span>Store Web</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="registro.html" class="btn btn-primary">Registro</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="container auth-container">
+            <h1>Crear una cuenta</h1>
+            <form id="registro-form" novalidate>
+                <!-- Campos en orden exacto como la imagen -->
+                <div class="form-group">
+                    <label for="nombre">NOMBRE COMPLETO</label>
+                    <input type="text" id="nombre" name="nombre" required maxlength="100" placeholder="Ingresa tu nombre completo">
+                    <p class="error-message" id="error-nombre"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">CORREO</label>
+                    <input type="email" id="email" name="email" required maxlength="100" placeholder="tu.correo@ejemplo.com">
+                    <p class="error-message" id="error-email"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">CONTRASEÑA</label>
+                    <input type="password" id="password" name="password" required placeholder="Entre 4 y 10 caracteres">
+                    <p class="error-message" id="error-password"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">CONFIRMAR CONTRASEÑA</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="Repite tu contraseña">
+                    <p class="error-message" id="error-confirm-password"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">TELÉFONO (opcional)</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678">
+                    <p class="error-message" id="error-telefono"></p>
+                </div>
+
+                <!-- Fila horizontal para Región y Comuna -->
+                <div class="region-comuna-row">
+                    <div class="form-group">
+                        <label for="region">REGIÓN</label>
+                        <select id="region" name="region" required>
+                            <option value="">- Seleccione la región -</option>
+                            <!-- Las regiones se cargarán con JavaScript -->
+                        </select>
+                        <p class="error-message" id="error-region"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comuna">COMUNA</label>
+                        <select id="comuna" name="comuna" required disabled>
+                            <option value="">- Seleccione la comuna -</option>
+                            <!-- Las comunas se cargarán con JavaScript -->
+                        </select>
+                        <p class="error-message" id="error-comuna"></p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: var(--spacing-3); margin-top: var(--spacing-4);">
+                    Registrarse
+                </button>
+            </form>
+
+            <div class="login-link">
+                <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+        </div>
+    </footer>
+    
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/registro.js"></script>
+</body>
+</html>
