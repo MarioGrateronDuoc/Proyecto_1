@@ -7,162 +7,201 @@
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
     <style>
-        /* Estilos específicos para la página del carrito */
+        /* Estilos específicos para el carrito según tu imagen */
         .cart-page {
             padding: var(--spacing-8) 0;
-        }
-
-        .cart-container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .cart-header {
             text-align: center;
             margin-bottom: var(--spacing-8);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: var(--spacing-4);
+        }
+
+        .cart-header h1 {
+            color: var(--color-gray-800);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-2);
+        }
+
+        .cart-items {
+            margin-bottom: var(--spacing-8);
         }
 
         .cart-item {
             display: grid;
-            grid-template-columns: 100px 1fr auto auto;
+            grid-template-columns: 80px 1fr auto;
             gap: var(--spacing-4);
-            align-items: center;
             padding: var(--spacing-4);
             border: 1px solid var(--color-gray-200);
             border-radius: var(--border-radius);
             margin-bottom: var(--spacing-4);
-            background-color: var(--color-white);
+            background: var(--color-white);
         }
 
         .cart-item-image {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             border-radius: var(--border-radius);
         }
 
         .cart-item-info h3 {
+            color: var(--color-gray-800);
             margin-bottom: var(--spacing-2);
-            color: var(--color-gray-900);
+            font-size: 1.1rem;
         }
 
-        .cart-item-price {
-            color: var(--color-primary);
-            font-weight: 600;
-            font-size: var(--font-size-lg);
+        .cart-item-info p {
+            color: var(--color-gray-600);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-3);
         }
 
         .cart-item-controls {
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-2);
-            align-items: center;
+            align-items: flex-end;
+            gap: var(--spacing-3);
         }
 
-        .delete-controls {
-            text-align: center;
-        }
-
-        .delete-controls p {
-            font-size: 12px;
-            margin-bottom: 5px;
-            color: var(--color-gray-600);
+        .cart-item-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primary);
         }
 
         .quantity-controls {
             display: flex;
             align-items: center;
             gap: var(--spacing-2);
-            margin-bottom: var(--spacing-2);
+            background: var(--color-gray-100);
+            padding: var(--spacing-1);
+            border-radius: var(--border-radius);
         }
 
         .quantity-btn {
             width: 30px;
             height: 30px;
-            border: 1px solid var(--color-gray-300);
-            background-color: var(--color-white);
-            border-radius: var(--border-radius);
+            border: none;
+            background: var(--color-white);
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
         }
 
         .quantity-btn:hover {
-            background-color: var(--color-gray-100);
+            background: var(--color-gray-200);
         }
 
         .quantity-number {
-            padding: 0 var(--spacing-3);
-            font-weight: 600;
             min-width: 30px;
             text-align: center;
+            font-weight: 600;
         }
 
         .remove-btn {
-            background-color: var(--color-error);
+            background: var(--color-error);
             color: var(--color-white);
             border: none;
             padding: var(--spacing-2) var(--spacing-3);
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: var(--font-size-sm);
+            font-size: 0.8rem;
+            margin-top: var(--spacing-2);
         }
 
         .remove-btn:hover {
-            background-color: #dc2626;
-        }
-
-        .cart-item-total {
-            text-align: right;
-            font-weight: 600;
-            font-size: var(--font-size-lg);
-            color: var(--color-gray-900);
+            background: #dc2626;
         }
 
         .cart-summary {
-            background-color: var(--color-gray-100);
+            background: var(--color-gray-50);
             padding: var(--spacing-6);
             border-radius: var(--border-radius);
-            margin-top: var(--spacing-6);
+            border: 1px solid var(--color-gray-200);
         }
 
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: var(--spacing-3);
-        }
-
-        .summary-total {
-            font-size: var(--font-size-xl);
+        .cart-total {
+            text-align: center;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--color-primary);
-            border-top: 2px solid var(--color-gray-300);
-            padding-top: var(--spacing-3);
-            margin-top: var(--spacing-3);
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 2px solid var(--color-gray-300);
+        }
+
+        .coupon-section {
+            margin-bottom: var(--spacing-6);
+        }
+
+        .coupon-section h3 {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-2);
+            color: var(--color-gray-700);
+        }
+
+        .coupon-input {
+            display: flex;
+            gap: var(--spacing-2);
+        }
+
+        .coupon-input input {
+            flex: 1;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+
+        .apply-btn {
+            background: var(--color-gray-600);
+            color: var(--color-white);
+            border: none;
+            padding: var(--spacing-3) var(--spacing-4);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .apply-btn:hover {
+            background: var(--color-gray-700);
         }
 
         .checkout-btn {
             width: 100%;
             padding: var(--spacing-4);
-            font-size: var(--font-size-lg);
-            margin-top: var(--spacing-4);
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .continue-shopping {
+            text-align: center;
+            margin-top: var(--spacing-6);
         }
 
         .empty-cart {
             text-align: center;
             padding: var(--spacing-10) 0;
-        }
-
-        .empty-cart h2 {
             color: var(--color-gray-500);
-            margin-bottom: var(--spacing-4);
-        }
-
-        .continue-shopping {
-            margin-top: var(--spacing-6);
-            text-align: center;
         }
 
         /* Responsive */
@@ -173,45 +212,11 @@
             }
 
             .cart-item-controls {
-                flex-direction: row;
-                justify-content: center;
+                align-items: center;
             }
 
-            .cart-item-total {
-                text-align: center;
-            }
-        }
-        
-        /* Notificaciones */
-        .alert {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 20px;
-            border-radius: 6px;
-            color: white;
-            font-weight: 500;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        .alert-success {
-            background-color: var(--color-success);
-        }
-        
-        .alert-error {
-            background-color: var(--color-error);
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            .coupon-input {
+                flex-direction: column;
             }
         }
     </style>
@@ -243,36 +248,35 @@
     </header>
 
     <main class="cart-page">
-        <div class="container cart-container">
+        <div class="container">
             <div class="cart-header">
-                <h1>🛒 Tu Carrito de Compras</h1>
-                <p>Revisa y gestiona los productos que agregaste</p>
+                <h1>🛒 Mi carrito de compras</h1>
+                <p>Revisa los productos que agregaste</p>
             </div>
 
-            <div id="cart-items-container">
+            <div class="cart-items" id="cart-items">
                 <!-- Los productos del carrito se cargarán aquí dinámicamente -->
             </div>
 
             <div class="cart-summary" id="cart-summary" style="display: none;">
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span id="subtotal">$0</span>
+                <div class="cart-total" id="cart-total">
+                    TOTAL: $ 0
                 </div>
-                <div class="summary-row">
-                    <span>Envío:</span>
-                    <span id="shipping">$0</span>
+
+                <div class="coupon-section">
+                    <h3>Ingrese el cupón de descuento</h3>
+                    <div class="coupon-input">
+                        <input type="text" id="coupon-code" placeholder="Código de descuento">
+                        <button class="apply-btn" onclick="aplicarCupon()">APLICAR</button>
+                    </div>
                 </div>
-                <div class="summary-row summary-total">
-                    <span>Total:</span>
-                    <span id="total">$0</span>
-                </div>
-                
-                <button class="btn btn-primary checkout-btn" onclick="procederAlPago()">
-                    🎯 Proceder al Pago
+
+                <button class="checkout-btn" onclick="procederAlPago()">
+                    💳 PAGAR
                 </button>
             </div>
 
-            <div class="empty-cart" id="empty-cart" style="display: none;">
+            <div class="empty-cart" id="empty-cart">
                 <h2>Tu carrito está vacío</h2>
                 <p>Agrega algunos productos para continuar con tu compra</p>
                 <a href="productos.html" class="btn btn-primary">Ver Productos</a>
@@ -291,203 +295,32 @@
     </footer>
 
     <script>
-        // Datos de productos para la tienda
-        const productos = [
-            {
-                id: 1,
-                nombre: "Laptop Gaming",
-                precio: 1200,
-                imagen: "../assets/img/productos/laptop.jpg",
-                categoria: "tecnologia",
-                descripcion: "Laptop ideal para gaming y trabajo intensivo"
-            },
-            {
-                id: 2,
-                nombre: "Smartphone Flagship",
-                precio: 800,
-                imagen: "../assets/img/productos/smartphone.jpg",
-                categoria: "tecnologia",
-                descripcion: "Último modelo con todas las características"
-            },
-            {
-                id: 3,
-                nombre: "Audífonos Bluetooth",
-                precio: 150,
-                imagen: "../assets/img/productos/audifonos.jpg",
-                categoria: "accesorios",
-                descripcion: "Sonido de alta calidad sin cables"
-            },
-            {
-                id: 4,
-                nombre: "Smartwatch",
-                precio: 250,
-                imagen: "../assets/img/productos/smartwatch.jpg",
-                categoria: "wearables",
-                descripcion: "Monitoriza tu actividad física y notificaciones"
-            }
-        ];
-
-        // Carrito de compras
-        let carrito = [];
-
-        // Cargar carrito desde localStorage
+        // Función para cargar carrito desde localStorage
         function cargarCarrito() {
             const carritoGuardado = localStorage.getItem('carrito');
-            if (carritoGuardado) {
-                carrito = JSON.parse(carritoGuardado);
-                actualizarContadorCarrito();
-            }
+            return carritoGuardado ? JSON.parse(carritoGuardado) : [];
         }
 
-        // Guardar carrito en localStorage
-        function guardarCarrito() {
+        // Función para guardar carrito en localStorage
+        function guardarCarrito(carrito) {
             localStorage.setItem('carrito', JSON.stringify(carrito));
-            actualizarContadorCarrito();
+            actualizarContadorCarrito(carrito);
         }
 
-        // Actualizar contador del carrito
-        function actualizarContadorCarrito() {
-            const contador = document.querySelector('.cart-count');
-            if (contador) {
-                const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+        // Función para actualizar contador del carrito
+        function actualizarContadorCarrito(carrito) {
+            const contadores = document.querySelectorAll('.cart-count');
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            
+            contadores.forEach(contador => {
                 contador.textContent = totalItems;
-                
-                // Actualizar texto del enlace del carrito
-                const enlaceCarrito = document.querySelector('.cart-icon');
-                if (enlaceCarrito && !enlaceCarrito.querySelector('.cart-count')) {
-                    enlaceCarrito.innerHTML = `Carrito (${totalItems})`;
-                }
-            }
+            });
         }
 
-        // Reducir cantidad de un producto
-        function reducirCantidad(productoId) {
-            const item = carrito.find(item => item.id === productoId);
-            
-            if (item) {
-                if (item.cantidad > 1) {
-                    item.cantidad -= 1; // Reduce la cantidad
-                    guardarCarrito();
-                    mostrarNotificacion('Cantidad reducida', 'success');
-                } else {
-                    eliminarDelCarrito(productoId); // Elimina si queda en 0
-                }
-            }
-        }
-
-        // Agregar producto al carrito
-        function agregarAlCarrito(productoId, cantidad = 1) {
-            const producto = productos.find(p => p.id === productoId);
-            
-            if (producto) {
-                const itemExistente = carrito.find(item => item.id === productoId);
-                
-                if (itemExistente) {
-                    itemExistente.cantidad += cantidad;
-                } else {
-                    carrito.push({
-                        id: producto.id,
-                        nombre: producto.nombre,
-                        precio: producto.precio,
-                        imagen: producto.imagen,
-                        cantidad: cantidad
-                    });
-                }
-                
-                guardarCarrito();
-                mostrarNotificacion('Producto agregado al carrito', 'success');
-            }
-        }
-
-        // Eliminar producto del carrito
-        function eliminarDelCarrito(productoId) {
-            carrito = carrito.filter(item => item.id !== productoId);
-            guardarCarrito();
-            mostrarNotificacion('Producto eliminado del carrito', 'success');
-        }
-
-        // Mostrar notificación
-        function mostrarNotificacion(mensaje, tipo = 'success') {
-            // Crear elemento de notificación
-            const notificacion = document.createElement('div');
-            notificacion.className = `alert alert-${tipo}`;
-            notificacion.textContent = mensaje;
-            
-            // Agregar estilos según el tipo
-            if (tipo === 'success') {
-                notificacion.style.backgroundColor = '#10b981';
-            } else {
-                notificacion.style.backgroundColor = '#ef4444';
-            }
-            
-            // Agregar al body
-            document.body.appendChild(notificacion);
-            
-            // Remover después de 3 segundos
-            setTimeout(() => {
-                notificacion.remove();
-            }, 3000);
-        }
-
-        // Objeto para trackear cuántas unidades queremos eliminar de cada producto
-        const cantidadesAEliminar = {};
-
-        // Función para cambiar la cantidad a eliminar
-        function cambiarCantidadEliminar(productoId, cambio) {
-            const item = carrito.find(item => item.id === productoId);
-            if (!item) return;
-            
-            if (!cantidadesAEliminar[productoId]) {
-                cantidadesAEliminar[productoId] = 1;
-            }
-            
-            const nuevaCantidad = cantidadesAEliminar[productoId] + cambio;
-            
-            // Validar límites (mínimo 1, máximo la cantidad en carrito)
-            if (nuevaCantidad >= 1 && nuevaCantidad <= item.cantidad) {
-                cantidadesAEliminar[productoId] = nuevaCantidad;
-                
-                // Actualizar la visualización
-                const amountElement = document.getElementById(`delete-amount-${productoId}`);
-                const textElement = document.getElementById(`delete-text-${productoId}`);
-                
-                if (amountElement && textElement) {
-                    amountElement.textContent = nuevaCantidad;
-                    textElement.textContent = nuevaCantidad === 1 ? '1 unidad' : `${nuevaCantidad} unidades`;
-                }
-            }
-        }
-
-        // Función para eliminar la cantidad seleccionada
-        function eliminarCantidadSeleccionada(productoId) {
-            const cantidadAEliminar = cantidadesAEliminar[productoId] || 1;
-            const itemIndex = carrito.findIndex(item => item.id === productoId);
-            
-            if (itemIndex !== -1) {
-                const item = carrito[itemIndex];
-                
-                if (cantidadAEliminar >= item.cantidad) {
-                    // Eliminar todo el producto
-                    eliminarDelCarrito(productoId);
-                    mostrarNotificacion('Producto eliminado del carrito', 'success');
-                } else {
-                    // Eliminar solo algunas unidades
-                    item.cantidad -= cantidadAEliminar;
-                    guardarCarrito();
-                    mostrarNotificacion(`Se eliminaron ${cantidadAEliminar} unidades`, 'success');
-                }
-                
-                // Resetear la cantidad a eliminar a 1
-                cantidadesAEliminar[productoId] = 1;
-                
-                // Volver a mostrar el carrito actualizado
-                mostrarCarrito();
-            }
-        }
-
-        // Función para mostrar el carrito
+        // Función para mostrar productos en el carrito
         function mostrarCarrito() {
-            const cartContainer = document.getElementById('cart-items-container');
+            const carrito = cargarCarrito();
+            const cartContainer = document.getElementById('cart-items');
             const cartSummary = document.getElementById('cart-summary');
             const emptyCart = document.getElementById('empty-cart');
 
@@ -502,62 +335,106 @@
             cartSummary.style.display = 'block';
 
             // Mostrar items del carrito
-            cartContainer.innerHTML = carrito.map(item => {
-                // Asegurarse de que la cantidad a eliminar sea válida
-                if (!cantidadesAEliminar[item.id] || cantidadesAEliminar[item.id] > item.cantidad) {
-                    cantidadesAEliminar[item.id] = 1;
-                }
-                
-                return `
+            cartContainer.innerHTML = carrito.map(item => `
                 <div class="cart-item">
                     <img src="${item.imagen}" alt="${item.nombre}" class="cart-item-image"
-                         onerror="this.src='https://via.placeholder.com/100x100?text=Imagen'">
+                         onerror="this.src='https://via.placeholder.com/80x80/667eea/ffffff?text=P'">
                     
                     <div class="cart-item-info">
                         <h3>${item.nombre}</h3>
-                        <p class="cart-item-price">$${item.precio} c/u</p>
-                        <p><strong>En carrito:</strong> ${item.cantidad} ${item.cantidad === 1 ? 'unidad' : 'unidades'}</p>
+                        <p>${item.descripcion}</p>
                     </div>
 
                     <div class="cart-item-controls">
-                        <div class="delete-controls">
-                            <p>¿Cuántas eliminar?</p>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="cambiarCantidadEliminar(${item.id}, -1)">-</button>
-                                <span class="quantity-number" id="delete-amount-${item.id}">${cantidadesAEliminar[item.id]}</span>
-                                <button class="quantity-btn" onclick="cambiarCantidadEliminar(${item.id}, 1)">+</button>
-                            </div>
-                            <button class="remove-btn" onclick="eliminarCantidadSeleccionada(${item.id})">
-                                ❌ Eliminar <span id="delete-text-${item.id}">${cantidadesAEliminar[item.id]} ${cantidadesAEliminar[item.id] === 1 ? 'unidad' : 'unidades'}</span>
-                            </button>
+                        <div class="cart-item-price">$ ${item.precio.toLocaleString()}</div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+                            <span class="quantity-number">${item.cantidad}</span>
+                            <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, 1)">+</button>
                         </div>
-                    </div>
-
-                    <div class="cart-item-total">
-                        $${item.precio * item.cantidad}
+                        <button class="remove-btn" onclick="eliminarProducto(${item.id})">
+                            🗑️ Eliminar
+                        </button>
                     </div>
                 </div>
-                `;
-            }).join('');
+            `).join('');
 
-            // Calcular totales
-            const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            const shipping = subtotal > 0 ? 5000 : 0;
-            const total = subtotal + shipping;
-
-            document.getElementById('subtotal').textContent = `$${subtotal}`;
-            document.getElementById('shipping').textContent = shipping > 0 ? `$${shipping}` : 'Gratis';
-            document.getElementById('total').textContent = `$${total}`;
+            // Calcular y mostrar total
+            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            document.getElementById('cart-total').textContent = `TOTAL: $ ${total.toLocaleString()}`;
         }
 
-        // Función para proceder al pago (placeholder)
+        // Función para cambiar cantidad de un producto
+        function cambiarCantidad(productoId, cambio) {
+            let carrito = cargarCarrito();
+            const itemIndex = carrito.findIndex(item => item.id === productoId);
+            
+            if (itemIndex !== -1) {
+                carrito[itemIndex].cantidad += cambio;
+                
+                if (carrito[itemIndex].cantidad <= 0) {
+                    carrito.splice(itemIndex, 1);
+                }
+                
+                guardarCarrito(carrito);
+                mostrarCarrito();
+            }
+        }
+
+        // Función para eliminar producto del carrito
+        function eliminarProducto(productoId) {
+            let carrito = cargarCarrito();
+            carrito = carrito.filter(item => item.id !== productoId);
+            guardarCarrito(carrito);
+            mostrarCarrito();
+        }
+
+        // Función para aplicar cupón de descuento
+        function aplicarCupon() {
+            const cuponCode = document.getElementById('coupon-code').value;
+            if (cuponCode.trim() === '') {
+                alert('Por favor ingresa un código de cupón');
+                return;
+            }
+            alert(`Cupón "${cuponCode}" aplicado (funcionalidad en desarrollo)`);
+        }
+
+        // Función para proceder al pago
         function procederAlPago() {
-            alert('🚀 ¡Redirigiendo al proceso de pago! Esta funcionalidad se implementará próximamente.');
+            const carrito = cargarCarrito();
+            if (carrito.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            alert(`🚀 ¡Redirigiendo al proceso de pago!\nTotal a pagar: $ ${total.toLocaleString()}`);
         }
 
-        // Cargar carrito al iniciar
+        // Función global para agregar productos al carrito (desde otras páginas)
+        window.agregarAlCarrito = function(producto) {
+            let carrito = cargarCarrito();
+            const itemExistente = carrito.find(item => item.id === producto.id);
+            
+            if (itemExistente) {
+                itemExistente.cantidad += 1;
+            } else {
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    descripcion: producto.descripcion,
+                    precio: producto.precio,
+                    imagen: producto.imagen,
+                    cantidad: 1
+                });
+            }
+            
+            guardarCarrito(carrito);
+            alert(`✅ "${producto.nombre}" agregado al carrito`);
+        }
+
+        // Inicializar carrito al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
-            cargarCarrito();
             mostrarCarrito();
         });
     </script>

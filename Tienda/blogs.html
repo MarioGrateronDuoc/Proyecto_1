@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - Store Web</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <style>
+        /* Estilos específicos para la página de blogs */
+        .blogs-page {
+            padding: var(--spacing-8) 0;
+        }
+
+        .blogs-header {
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: var(--spacing-6) 0;
+            border-radius: var(--border-radius);
+        }
+
+        .blogs-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-2);
+        }
+
+        .blogs-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .blogs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+            color: var(--color-gray-800);
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--color-primary);
+            margin: var(--spacing-2) auto;
+            border-radius: 2px;
+        }
+
+        .noticias-importantes {
+            background: var(--color-warning-light);
+            border: 2px solid var(--color-warning);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-4);
+            margin-bottom: var(--spacing-8);
+            text-align: center;
+        }
+
+        .noticias-importantes h2 {
+            color: var(--color-warning-dark);
+            margin-bottom: var(--spacing-2);
+            font-size: 1.5rem;
+        }
+
+        .noticias-importantes p {
+            color: var(--color-gray-700);
+            font-size: 1.1rem;
+        }
+
+        .blogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .blog-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: var(--spacing-4);
+        }
+
+        .blog-category {
+            display: inline-block;
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-2);
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--color-gray-600);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-3);
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-3);
+            padding-top: var(--spacing-3);
+            border-top: 1px solid var(--color-gray-200);
+        }
+
+        .blog-date {
+            color: var(--color-gray-500);
+            font-size: 0.9rem;
+        }
+
+        .blog-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-1);
+            transition: color 0.3s ease;
+        }
+
+        .blog-link:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .newsletter-section {
+            background: var(--color-gray-100);
+            padding: var(--spacing-8) 0;
+            margin-top: var(--spacing-8);
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h3 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blogs-header h1 {
+                font-size: 2rem;
+            }
+
+            .blogs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <span>Store Web</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html" class="active">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="registro.html" class="btn btn-primary">Registro</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blogs-page">
+        <div class="container">
+            <div class="blogs-header">
+                <h1>📚 Blog de Store Web</h1>
+                <p>Descubre noticias, casos curiosos y tips sobre tecnología</p>
+            </div>
+
+            <div class="blogs-container">
+                <!-- Sección de Noticias Importantes -->
+                <div class="noticias-importantes">
+                    <h2>🚨 NOTICIAS IMPORTANTES</h2>
+                    <p>Mantente informado con las últimas novedades y actualizaciones de Store Web</p>
+                </div>
+
+                <!-- Grid de Blogs -->
+                <h2 class="section-title">Casos Curiosos y Noticias</h2>
+                
+                <div class="blogs-grid">
+                    <!-- Blog 1 -->
+                    <article class="blog-card">
+                        <img src="../assets/img/blogs/caso-curioso-1.jpg" alt="Caso Curioso #1" class="blog-image"
+                             onerror="this.src='https://via.placeholder.com/400x200/667eea/ffffff?text=Caso+Curioso+1'">
+                        <div class="blog-content">
+                            <span class="blog-category">Tecnología</span>
+                            <h3 class="blog-title">CASO CURIOSO #1: La Revolución de los Dispositivos Inteligentes</h3>
+                            <p class="blog-excerpt">
+                                Descubre cómo los dispositivos inteligentes están transformando la forma en que interactuamos 
+                                con la tecnología en nuestro día a día. Desde hogares automatizados hasta wearables que 
+                                monitorean nuestra salud.
+                            </p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Publicado: 15 Dic 2024</span>
+                                <a href="detalle-blog.html?id=1" class="blog-link">
+                                    VER CASO <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog 2 -->
+                    <article class="blog-card">
+                        <img src="../assets/img/blogs/caso-curioso-2.jpg" alt="Caso Curioso #2" class="blog-image"
+                             onerror="this.src='https://via.placeholder.com/400x200/764ba2/ffffff?text=Caso+Curioso+2'">
+                        <div class="blog-content">
+                            <span class="blog-category">Innovación</span>
+                            <h3 class="blog-title">CASO CURIOSO #2: El Futuro de la Realidad Aumentada</h3>
+                            <p class="blog-excerpt">
+                                Explora las increíbles posibilidades que ofrece la realidad aumentada en el comercio 
+                                electrónico. Cómo probarte ropa virtualmente o ver muebles en tu espacio antes de comprarlos.
+                            </p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Publicado: 10 Dic 2024</span>
+                                <a href="detalle-blog.html?id=2" class="blog-link">
+                                    VER CASO <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog 3 -->
+                    <article class="blog-card">
+                        <img src="../assets/img/blogs/guia-compras.jpg" alt="Guía de Compras" class="blog-image"
+                             onerror="this.src='https://via.placeholder.com/400x200/f093fb/ffffff?text=Guía+Compras'">
+                        <div class="blog-content">
+                            <span class="blog-category">Guía</span>
+                            <h3 class="blog-title">Guía Definitiva para Elegir tu Próximo Smartphone</h3>
+                            <p class="blog-excerpt">
+                                Nuestra guía completa te ayuda a seleccionar el smartphone perfecto según tus necesidades. 
+                                Comparativa de características, precios y recomendaciones expertas.
+                            </p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Publicado: 5 Dic 2024</span>
+                                <a href="detalle-blog.html?id=3" class="blog-link">
+                                    LEER MÁS <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog 4 -->
+                    <article class="blog-card">
+                        <img src="../assets/img/blogs/tendencias-2024.jpg" alt="Tendencias 2024" class="blog-image"
+                             onerror="this.src='https://via.placeholder.com/400x200/4facfe/ffffff?text=Tendencias+2024'">
+                        <div class="blog-content">
+                            <span class="blog-category">Tendencias</span>
+                            <h3 class="blog-title">Tendencias Tecnológicas que Dominarán el 2024</h3>
+                            <p class="blog-excerpt">
+                                Un vistazo a las tecnologías más prometedoras del próximo año. Inteligencia artificial, 
+                                computación cuántica, sostenibilidad tecnológica y mucho más.
+                            </p>
+                            <div class="blog-meta">
+                                <span class="blog-date">Publicado: 1 Dic 2024</span>
+                                <a href="detalle-blog.html?id=4" class="blog-link">
+                                    LEER MÁS <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Newsletter Section -->
+            <section class="newsletter-section">
+                <div class="newsletter-content">
+                    <h3>📧 Suscríbete a nuestro Newsletter</h3>
+                    <p>Recibe las últimas noticias, casos curiosos y ofertas exclusivas directamente en tu email.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="tu.email@ejemplo.com" required>
+                        <button type="submit" class="btn btn-primary">Suscribirse</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Store Web</h4>
+                    <p>Tu tienda de confianza para productos tecnológicos.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="blogs.html">Blog</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>email: info@storeweb.com</p>
+                    <p>teléfono: +56 9 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Contador del carrito
+        function actualizarContadorCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            
+            const contadores = document.querySelectorAll('.cart-count');
+            contadores.forEach(contador => {
+                contador.textContent = totalItems;
+            });
+        }
+
+        // Newsletter form
+        document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email.includes('@')) {
+                alert('¡Gracias por suscribirte! Te hemos enviado un email de confirmación.');
+                this.reset();
+            } else {
+                alert('Por favor, ingresa un email válido.');
+            }
+        });
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarContadorCarrito();
+        });
+    </script>
+</body>
+</html>
