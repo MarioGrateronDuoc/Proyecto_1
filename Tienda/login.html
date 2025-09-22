@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Web - Login</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos específicos para el login */
+        .login-section {
+            padding: var(--spacing-10) 0;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: var(--spacing-6);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+        }
+
+        .login-header h1 {
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .login-header p {
+            color: var(--color-gray-600);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-4);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 600;
+            color: var(--color-gray-800);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: var(--spacing-3);
+            border: 2px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .error-message {
+            color: var(--color-error);
+            font-size: 0.9rem;
+            margin-top: var(--spacing-1);
+            display: block;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: var(--spacing-3);
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .login-links {
+            text-align: center;
+            margin-top: var(--spacing-4);
+        }
+
+        .login-links a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: var(--spacing-4);
+                padding: var(--spacing-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header igual que tu home -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <span>Store Web</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="registro.html" class="btn btn-primary">Registro</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Login -->
+    <main>
+        <section class="login-section">
+            <div class="container">
+                <div class="login-container">
+                    <div class="login-header">
+                        <h1>Iniciar Sesión</h1>
+                        <p>Ingresa a tu cuenta de Store Web</p>
+                    </div>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" placeholder="ejemplo@duoc.cl" required>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" placeholder="Entre 4 y 10 caracteres" required>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn-login">Iniciar Sesión</button>
+                    </form>
+                    
+                    <div class="login-links">
+                        <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer igual que tu home -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Store Web</h4>
+                    <p>Tu tienda de confianza para productos tecnológicos.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>email: info@storeweb.com</p>
+                    <p>teléfono: +56 9 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/global.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+        // Inicializar el carrito al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof cargarCarrito === 'function') {
+                cargarCarrito();
+            }
+        });
+    </script>
+</body>
+</html>
