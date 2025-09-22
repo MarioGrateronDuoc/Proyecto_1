@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Blog - Store Web</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <style>
+        /* Estilos específicos para la página de detalle del blog */
+        .blog-detail-page {
+            padding: var(--spacing-8) 0;
+        }
+
+        .blog-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        .blog-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            color: var(--color-primary);
+            text-decoration: none;
+            margin-bottom: var(--spacing-4);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .blog-back-link:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .blog-header {
+            margin-bottom: var(--spacing-6);
+        }
+
+        .blog-category {
+            display: inline-block;
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-3);
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-3);
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            color: var(--color-gray-600);
+            font-size: 0.9rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+
+        .blog-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .blog-featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .blog-content {
+            line-height: 1.8;
+            color: var(--color-gray-700);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .blog-content h2 {
+            color: var(--color-gray-800);
+            margin: var(--spacing-5) 0 var(--spacing-3) 0;
+            font-size: 1.8rem;
+        }
+
+        .blog-content h3 {
+            color: var(--color-gray-800);
+            margin: var(--spacing-4) 0 var(--spacing-2) 0;
+            font-size: 1.4rem;
+        }
+
+        .blog-content p {
+            margin-bottom: var(--spacing-4);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--color-primary);
+            padding-left: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+            font-style: italic;
+            color: var(--color-gray-600);
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin-bottom: var(--spacing-4);
+            padding-left: var(--spacing-5);
+        }
+
+        .blog-content li {
+            margin-bottom: var(--spacing-2);
+        }
+
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-2);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .blog-tag {
+            background: var(--color-gray-100);
+            color: var(--color-gray-700);
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--color-gray-200);
+            border-bottom: 1px solid var(--color-gray-200);
+            padding: var(--spacing-4) 0;
+            margin-bottom: var(--spacing-8);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .related-blogs {
+            margin-bottom: var(--spacing-8);
+        }
+
+        .related-blogs h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+            color: var(--color-gray-800);
+            font-size: 2rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-4);
+        }
+
+        .related-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .related-content {
+            padding: var(--spacing-3);
+        }
+
+        .related-title {
+            font-size: 1.1rem;
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+            line-height: 1.4;
+        }
+
+        .related-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .newsletter-section {
+            background: var(--color-gray-100);
+            padding: var(--spacing-8) 0;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h3 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .blog-featured-image {
+                height: 250px;
+            }
+
+            .blog-navigation {
+                flex-direction: column;
+                gap: var(--spacing-4);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <span>Store Web</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="registro.html" class="btn btn-primary">Registro</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-detail-page">
+        <div class="container">
+            <div class="blog-detail-container">
+                <!-- Enlace de regreso -->
+                <a href="blogs.html" class="blog-back-link">
+                    ← Volver al Blog
+                </a>
+
+                <!-- Cabecera del blog -->
+                <header class="blog-header">
+                    <span class="blog-category" id="blog-category">Tecnología</span>
+                    <h1 class="blog-title" id="blog-title">CASO CURIOSO #1: La Revolución de los Dispositivos Inteligentes</h1>
+                    <div class="blog-meta">
+                        <span class="blog-date" id="blog-date">Publicado: 15 Dic 2024</span>
+                        <span class="blog-read-time" id="blog-read-time">5 min de lectura</span>
+                        <div class="blog-author">
+                            <img src="../assets/img/author-avatar.jpg" alt="Autor" class="blog-author-avatar"
+                                 onerror="this.src='https://via.placeholder.com/40x40/667eea/ffffff?text=SW'">
+                            <span>Por Store Web Team</span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Imagen destacada -->
+                <img src="../assets/img/blogs/caso-curioso-1.jpg" alt="Caso Curioso #1" class="blog-featured-image"
+                     id="blog-image" onerror="this.src='https://via.placeholder.com/900x400/667eea/ffffff?text=Caso+Curioso+1'">
+
+                <!-- Contenido del blog -->
+                <article class="blog-content" id="blog-content">
+                    <p>En los últimos años, hemos sido testigos de una transformación radical en la forma en que interactuamos con la tecnología. Los dispositivos inteligentes han pasado de ser artículos de lujo a elementos esenciales en nuestros hogares y vidas diarias.</p>
+
+                    <h2>La Evolución de los Hogares Inteligentes</h2>
+                    <p>Lo que comenzó con termostatos inteligentes y luces controladas por voz ha evolucionado hacia ecosistemas completos que gestionan desde la seguridad hasta el entretenimiento. Hoy en día, es posible controlar prácticamente todos los aspectos de nuestro hogar a través de un smartphone o mediante comandos de voz.</p>
+
+                    <blockquote>
+                        "La verdadera magia de los dispositivos inteligentes no está en lo que pueden hacer por sí solos, sino en cómo trabajan juntos para crear experiencias seamless."
+                    </blockquote>
+
+                    <h3>Wearables: Más Allá de Contar Pasos</h3>
+                    <p>Los wearables han evolucionado significativamente desde los primeros rastreadores de actividad física. Hoy en día, estos dispositivos pueden:</p>
+                    <ul>
+                        <li>Monitorear signos vitales en tiempo real</li>
+                        <li>Detectar anomalías cardíacas</li>
+                        <li>Analizar patrones de sueño</li>
+                        <li>Integrarse con servicios de emergencia</li>
+                    </ul>
+
+                    <h2>El Futuro de la Conectividad</h2>
+                    <p>Con la llegada del 5G y el desarrollo del Internet de las Cosas (IoT), la interconexión entre dispositivos será aún más fluida. Pronto veremos ciudades inteligentes donde los semáforos, el transporte público y los servicios urbanos estarán interconectados para mejorar la calidad de vida.</p>
+
+                    <h3>Desafíos y Consideraciones</h3>
+                    <p>A medida que adoptamos más dispositivos inteligentes, también debemos considerar:</p>
+                    <ol>
+                        <li>Privacidad y seguridad de datos</li>
+                        <li>Interoperabilidad entre diferentes marcas</li>
+                        <li>Impacto ambiental de la producción y desecho</li>
+                        <li>Accesibilidad para todos los segmentos de la población</li>
+                    </ol>
+
+                    <p>La revolución de los dispositivos inteligentes apenas comienza. A medida que la tecnología continúa avanzando, podemos esperar innovaciones que hoy solo imaginamos en la ciencia ficción.</p>
+                </article>
+
+                <!-- Etiquetas -->
+                <div class="blog-tags" id="blog-tags">
+                    <span class="blog-tag">Tecnología</span>
+                    <span class="blog-tag">Dispositivos Inteligentes</span>
+                    <span class="blog-tag">IoT</span>
+                    <span class="blog-tag">Innovación</span>
+                </div>
+
+                <!-- Navegación entre blogs -->
+                <div class="blog-navigation">
+                    <a href="detalle-blog.html?id=2" class="nav-link">
+                        ← Caso Curioso #2
+                    </a>
+                    <a href="detalle-blog.html?id=3" class="nav-link">
+                        Guía de Smartphones →
+                    </a>
+                </div>
+
+                <!-- Blogs relacionados -->
+                <section class="related-blogs">
+                    <h2>Artículos Relacionados</h2>
+                    <div class="related-grid">
+                        <article class="related-card">
+                            <img src="../assets/img/blogs/caso-curioso-2.jpg" alt="Caso Curioso #2" class="related-image"
+                                 onerror="this.src='https://via.placeholder.com/280x160/764ba2/ffffff?text=Caso+2'">
+                            <div class="related-content">
+                                <h3 class="related-title">CASO CURIOSO #2: El Futuro de la Realidad Aumentada</h3>
+                                <a href="detalle-blog.html?id=2" class="related-link">Leer más →</a>
+                            </div>
+                        </article>
+                        <article class="related-card">
+                            <img src="../assets/img/blogs/guia-compras.jpg" alt="Guía de Compras" class="related-image"
+                                 onerror="this.src='https://via.placeholder.com/280x160/f093fb/ffffff?text=Guía'">
+                            <div class="related-content">
+                                <h3 class="related-title">Guía Definitiva para Elegir tu Próximo Smartphone</h3>
+                                <a href="detalle-blog.html?id=3" class="related-link">Leer más →</a>
+                            </div>
+                        </article>
+                        <article class="related-card">
+                            <img src="../assets/img/blogs/tendencias-2024.jpg" alt="Tendencias 2024" class="related-image"
+                                 onerror="this.src='https://via.placeholder.com/280x160/4facfe/ffffff?text=Tendencias'">
+                            <div class="related-content">
+                                <h3 class="related-title">Tendencias Tecnológicas que Dominarán el 2024</h3>
+                                <a href="detalle-blog.html?id=4" class="related-link">Leer más →</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>📧 ¿Te gustó este artículo?</h3>
+                <p>Suscríbete a nuestro newsletter para recibir más contenido como este directamente en tu email.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="tu.email@ejemplo.com" required>
+                    <button type="submit" class="btn btn-primary">Suscribirse</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Store Web</h4>
+                    <p>Tu tienda de confianza para productos tecnológicos.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="blogs.html">Blog</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>email: info@storeweb.com</p>
+                    <p>teléfono: +56 9 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de los blogs
+        const blogsData = {
+            1: {
+                category: "Tecnología",
+                title: "CASO CURIOSO #1: La Revolución de los Dispositivos Inteligentes",
+                date: "Publicado: 15 Dic 2024",
+                readTime: "5 min de lectura",
+                image: "../assets/img/blogs/caso-curioso-1.jpg",
+                tags: ["Tecnología", "Dispositivos Inteligentes", "IoT", "Innovación"]
+            },
+            2: {
+                category: "Innovación",
+                title: "CASO CURIOSO #2: El Futuro de la Realidad Aumentada",
+                date: "Publicado: 10 Dic 2024",
+                readTime: "7 min de lectura",
+                image: "../assets/img/blogs/caso-curioso-2.jpg",
+                tags: ["Realidad Aumentada", "Innovación", "Tecnología", "Comercio"]
+            },
+            3: {
+                category: "Guía",
+                title: "Guía Definitiva para Elegir tu Próximo Smartphone",
+                date: "Publicado: 5 Dic 2024",
+                readTime: "8 min de lectura",
+                image: "../assets/img/blogs/guia-compras.jpg",
+                tags: ["Smartphone", "Guía", "Comparativa", "Tecnología"]
+            },
+            4: {
+                category: "Tendencias",
+                title: "Tendencias Tecnológicas que Dominarán el 2024",
+                date: "Publicado: 1 Dic 2024",
+                readTime: "6 min de lectura",
+                image: "../assets/img/blogs/tendencias-2024.jpg",
+                tags: ["Tendencias", "Tecnología", "2024", "Innovación"]
+            }
+        };
+
+        // Cargar datos del blog según el ID en la URL
+        function cargarBlog() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = urlParams.get('id') || 1;
+            const blogData = blogsData[blogId];
+
+            if (blogData) {
+                document.getElementById('blog-category').textContent = blogData.category;
+                document.getElementById('blog-title').textContent = blogData.title;
+                document.getElementById('blog-date').textContent = blogData.date;
+                document.getElementById('blog-read-time').textContent = blogData.readTime;
+                document.getElementById('blog-image').src = blogData.image;
+                
+                // Actualizar etiquetas
+                const tagsContainer = document.getElementById('blog-tags');
+                tagsContainer.innerHTML = blogData.tags.map(tag => 
+                    `<span class="blog-tag">${tag}</span>`
+                ).join('');
+                
+                // Actualizar título de la página
+                document.title = `${blogData.title} - Store Web`;
+            }
+        }
+
+        // Contador del carrito
+        function actualizarContadorCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            
+            const contadores = document.querySelectorAll('.cart-count');
+            contadores.forEach(contador => {
+                contador.textContent = totalItems;
+            });
+        }
+
+        // Newsletter form
+        document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email.includes('@')) {
+                alert('¡Gracias por suscribirte! Te hemos enviado un email de confirmación.');
+                this.reset();
+            } else {
+                alert('Por favor, ingresa un email válido.');
+            }
+        });
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarBlog();
+            actualizarContadorCarrito();
+        });
+    </script>
+</body>
+</html>
