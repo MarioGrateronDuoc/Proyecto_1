@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Store Web</title>
+    <style>
+        :root {
+            --color-primary: #3498db;
+            --color-primary-dark: #2980b9;
+            --color-primary-light: #d6eaf8;
+            --color-white: #ffffff;
+            --color-gray-100: #f8f9fa;
+            --color-gray-200: #e9ecef;
+            --color-gray-300: #dee2e6;
+            --color-gray-600: #6c757d;
+            --color-gray-700: #495057;
+            --color-gray-800: #343a40;
+            --color-error: #e74c3c;
+            --border-radius: 8px;
+            --font-size-base: 1rem;
+            --font-size-sm: 0.875rem;
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 1rem;
+            --spacing-4: 1.5rem;
+            --spacing-5: 2rem;
+            --spacing-6: 2.5rem;
+            --spacing-8: 3rem;
+            --spacing-10: 5rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--color-white);
+            color: var(--color-gray-800);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header IDÉNTICO al de tu blog */
+        header {
+            background-color: var(--color-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+        
+        nav a:hover {
+            color: var(--color-primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-weight: 500;
+            background-color: var(--color-gray-100);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+        }
+        
+        .cart-count {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--color-primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        /* Hero Section como tu blog */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: var(--spacing-10) 0;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-6);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Contact Section - Estructura similar a blog-detail-page */
+        .contact-page {
+            padding: var(--spacing-8) 0;
+        }
+
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+        
+        .contact-form-section {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .contact-form-section h2 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-4);
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 600;
+            color: var(--color-gray-800);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-base);
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group .error-message {
+            color: var(--color-error);
+            font-size: var(--font-size-sm);
+            margin-top: var(--spacing-1);
+            display: none;
+        }
+        
+        .form-message {
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: var(--border-radius);
+            display: none;
+            font-weight: 500;
+        }
+        
+        .success {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+        }
+        
+        .error {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--color-error);
+            border: 1px solid var(--color-error);
+        }
+        
+        /* Contact Info Section */
+        .contact-info-section {
+            background: var(--color-gray-100);
+            padding: var(--spacing-6);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .contact-info-section h3 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-4);
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-4);
+        }
+        
+        .contact-detail {
+            text-align: center;
+            padding: var(--spacing-3);
+        }
+        
+        .contact-detail i {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .contact-detail h4 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-1);
+        }
+        
+        /* Newsletter Section - Igual que en tu blog */
+        .newsletter-section {
+            background: var(--color-gray-100);
+            padding: var(--spacing-8) 0;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h3 {
+            color: var(--color-gray-800);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        
+        /* Footer IDÉNTICO al de tu blog */
+        footer {
+            background-color: var(--color-gray-800);
+            color: var(--color-white);
+            padding: var(--spacing-8) 0 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .footer-section h4 {
+            margin-bottom: var(--spacing-3);
+            color: var(--color-primary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--color-white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: var(--spacing-3) 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 15px 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav li {
+                margin: 0 10px 10px;
+            }
+            
+            .header-actions {
+                margin-top: 10px;
+            }
+            
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-form-section {
+                padding: var(--spacing-4);
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .contact-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header IDÉNTICO al de tu blog -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <span>Store Web</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="registro.html" class="btn btn-primary">Registro</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        <!-- Hero Section como tu blog -->
+        <section class="contact-hero">
+            <div class="container">
+                <h1>Contáctanos</h1>
+                <p>¿Tienes preguntas o necesitas ayuda? Estamos aquí para asistirte. Envíanos un mensaje y te responderemos pronto.</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="contact-container">
+                <!-- Formulario de Contacto -->
+                <section class="contact-form-section">
+                    <h2>Formulario de Contacto</h2>
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="nombre">NOMBRE COMPLETO</label>
+                            <input type="text" id="nombre" name="nombre" required maxlength="100" placeholder="Ingresa tu nombre completo">
+                            <p class="error-message" id="error-nombre"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">CORREO</label>
+                            <input type="email" id="email" name="email" required maxlength="100" placeholder="tu.correo@ejemplo.com">
+                            <p class="error-message" id="error-email"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">MENSAJE</label>
+                            <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <p class="error-message" id="error-mensaje"></p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: var(--spacing-3); margin-top: var(--spacing-4);">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+
+                    <div id="formMessage" class="form-message"></div>
+                </section>
+
+                <!-- Información de Contacto -->
+                <section class="contact-info-section">
+                    <h3>Información de Contacto</h3>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i>📧</i>
+                            <h4>Email</h4>
+                            <p>info@storeweb.com</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i>📞</i>
+                            <h4>Teléfono</h4>
+                            <p>+56 9 1234 5678</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i>📍</i>
+                            <h4>Dirección</h4>
+                            <p>Calle Principal 123, Santiago, Chile</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i>🕒</i>
+                            <h4>Horario</h4>
+                            <p>Lun-Vie: 9:00-18:00<br>Sáb: 10:00-14:00</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Newsletter Section - Igual que en tu blog -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>📧 ¿Te gustó nuestro servicio?</h3>
+                <p>Suscríbete a nuestro newsletter para recibir ofertas exclusivas y novedades.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="tu.email@ejemplo.com" required>
+                    <button type="submit" class="btn btn-primary">Suscribirse</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer IDÉNTICO al de tu blog -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Store Web</h4>
+                    <p>Tu tienda de confianza para productos tecnológicos.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="blogs.html">Blog</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>email: info@storeweb.com</p>
+                    <p>teléfono: +56 9 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para actualizar el contador del carrito (igual que en tu blog)
+        function actualizarContadorCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            
+            const contadores = document.querySelectorAll('.cart-count');
+            contadores.forEach(contador => {
+                contador.textContent = totalItems;
+            });
+        }
+
+        // Validación del formulario de contacto
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener valores del formulario
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+            
+            // Ocultar mensajes de error previos
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Validaciones
+            let isValid = true;
+            
+            if (nombre === '') {
+                document.getElementById('error-nombre').textContent = 'El nombre es obligatorio';
+                document.getElementById('error-nombre').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (email === '') {
+                document.getElementById('error-email').textContent = 'El correo es obligatorio';
+                document.getElementById('error-email').style.display = 'block';
+                isValid = false;
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('error-email').textContent = 'Por favor, ingrese un email válido';
+                    document.getElementById('error-email').style.display = 'block';
+                    isValid = false;
+                }
+            }
+            
+            if (mensaje === '') {
+                document.getElementById('error-mensaje').textContent = 'El mensaje es obligatorio';
+                document.getElementById('error-mensaje').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Mostrar mensaje de éxito
+            const formMessage = document.getElementById('formMessage');
+            formMessage.textContent = '¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            
+            // Limpiar formulario después de 3 segundos
+            setTimeout(() => {
+                document.getElementById('contact-form').reset();
+                formMessage.style.display = 'none';
+            }, 3000);
+        });
+
+        // Newsletter form (igual que en tu blog)
+        document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email.includes('@')) {
+                alert('¡Gracias por suscribirte! Te hemos enviado un email de confirmación.');
+                this.reset();
+            } else {
+                alert('Por favor, ingresa un email válido.');
+            }
+        });
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarContadorCarrito();
+        });
+    </script>
+</body>
+</html>
