@@ -4,11 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store Web - Inicio</title>
-    <!-- Enlaza los archivos CSS globales primero -->
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
-    <!-- Luego los específicos de la tienda -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos específicos para el homepage */
+        .hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: var(--spacing-10) 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-6);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .featured-products {
+            padding: var(--spacing-8) 0;
+        }
+
+        .featured-products h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+            color: var(--color-gray-800);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .product-card {
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-4);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-2);
+            color: var(--color-gray-800);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .newsletter {
+            background-color: var(--color-gray-100);
+            padding: var(--spacing-8) 0;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            margin-bottom: var(--spacing-3);
+            color: var(--color-gray-800);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--spacing-2);
+            justify-content: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -37,27 +145,65 @@
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
                 <h1>Bienvenido a Store Web</h1>
-                <p>Descubre los mejores productos con los precios más competitivos del mercado.</p>
+                <p>Descubre los mejores productos tecnológicos con los precios más competitivos del mercado. Calidad garantizada y envío rápido.</p>
                 <a href="productos.html" class="btn btn-primary">Ver Productos</a>
             </div>
         </section>
 
+        <!-- Productos Destacados -->
         <section class="featured-products">
             <div class="container">
                 <h2>Productos Destacados</h2>
                 <div class="products-grid" id="productos-destacados">
-                    <!-- Los productos se cargarán dinámicamente con JavaScript -->
+                    <!-- Los productos se cargarán dinámicamente -->
                 </div>
+                <div style="text-align: center;">
+                    <a href="productos.html" class="btn btn-outline">Ver Todos los Productos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter">
+            <div class="container">
+                <h3>Suscríbete a nuestro Newsletter</h3>
+                <p>Recibe ofertas exclusivas y novedades sobre nuestros productos.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Ingresa tu email" required>
+                    <button type="submit" class="btn btn-primary">Suscribirse</button>
+                </form>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Store Web</h4>
+                    <p>Tu tienda de confianza para productos tecnológicos.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>email: info@storeweb.com</p>
+                    <p>teléfono: +56 9 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            </div>
         </div>
     </footer>
 
@@ -65,7 +211,7 @@
     <script src="../assets/js/data.js"></script>
     <script src="../assets/js/global.js"></script>
     <script>
-        // Función para cargar productos en el homepage
+        // Función para cargar productos destacados
         function cargarProductosDestacados() {
             const contenedor = document.getElementById('productos-destacados');
             
@@ -80,6 +226,7 @@
                          onerror="this.src='https://via.placeholder.com/300x200?text=Imagen+no+disponible'">
                     <div class="product-info">
                         <h3 class="product-title">${producto.nombre}</h3>
+                        <p class="product-description">${producto.descripcion}</p>
                         <p class="product-price">$${producto.precio}</p>
                         <button class="btn btn-primary" onclick="agregarAlCarrito(${producto.id})">
                             Añadir al Carrito
@@ -89,9 +236,24 @@
             `).join('');
         }
 
+        // Validación del formulario de newsletter
+        document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Validación simple de email
+            if (email.includes('@')) {
+                alert('¡Gracias por suscribirte! Te hemos enviado un email de confirmación.');
+                this.reset();
+            } else {
+                alert('Por favor, ingresa un email válido.');
+            }
+        });
+
         // Cargar productos cuando la página esté lista
         document.addEventListener('DOMContentLoaded', () => {
             cargarProductosDestacados();
+            cargarCarrito(); // Asegurar que el contador del carrito se actualice
         });
     </script>
 </body>
