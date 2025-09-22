@@ -1,443 +1,336 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Web - Estilos Globales</title>
-    <style>
-        /* RESET Y ESTILOS BASE */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        :root {
-            /* Colores Primarios */
-            --color-primary: #2563eb;
-            --color-primary-dark: #1d4ed8;
-            --color-secondary: #f59e0b;
-            --color-secondary-dark: #d97706;
-            
-            /* Escala de Grises */
-            --color-white: #ffffff;
-            --color-gray-50: #f8fafc;
-            --color-gray-100: #f1f5f9;
-            --color-gray-200: #e2e8f0;
-            --color-gray-300: #cbd5e1;
-            --color-gray-400: #94a3b8;
-            --color-gray-500: #64748b;
-            --color-gray-600: #475569;
-            --color-gray-700: #334155;
-            --color-gray-800: #1e293b;
-            --color-gray-900: #0f172a;
-            --color-black: #000000;
-            
-            /* Colores Semánticos */
-            --color-success: #10b981;
-            --color-warning: #f59e0b;
-            --color-error: #ef4444;
-            --color-info: #3b82f6;
-            
-            /* Tipografía */
-            --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            --font-size-xs: 0.75rem;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.125rem;
-            --font-size-xl: 1.25rem;
-            --font-size-2xl: 1.5rem;
-            --font-size-3xl: 1.875rem;
-            
-            /* Espaciado */
-            --spacing-1: 0.25rem;
-            --spacing-2: 0.5rem;
-            --spacing-3: 0.75rem;
-            --spacing-4: 1rem;
-            --spacing-5: 1.25rem;
-            --spacing-6: 1.5rem;
-            --spacing-8: 2rem;
-            --spacing-10: 2.5rem;
-            
-            /* Bordes */
-            --border-radius: 0.375rem;
-            --border-radius-lg: 0.5rem;
-            --border-radius-xl: 0.75rem;
-            
-            /* Sombras */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+/* Estilos Base */
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-gray-800);
+    background-color: var(--color-gray-50);
+}
 
-        body {
-            font-family: var(--font-family);
-            font-size: var(--font-size-base);
-            line-height: 1.6;
-            color: var(--color-gray-800);
-            background-color: var(--color-gray-50);
-        }
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: var(--spacing-4);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-gray-900);
+}
 
-        h1, h2, h3, h4, h5, h6 {
-            margin-bottom: var(--spacing-4);
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--color-gray-900);
-        }
+h1 { font-size: var(--font-size-3xl); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
 
-        h1 { font-size: var(--font-size-3xl); }
-        h2 { font-size: var(--font-size-2xl); }
-        h3 { font-size: var(--font-size-xl); }
-        h4 { font-size: var(--font-size-lg); }
+p {
+    margin-bottom: var(--spacing-4);
+}
 
-        p {
-            margin-bottom: var(--spacing-4);
-        }
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
 
-        a {
-            color: var(--color-primary);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
+a:hover {
+    color: var(--color-primary-dark);
+}
 
-        a:hover {
-            color: var(--color-primary-dark);
-        }
+/* Layout y Contenedores */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
 
-        /* LAYOUT Y CONTENEDORES */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-4);
-        }
+/* COMPONENTES DE FORMULARIO */
+.form-group {
+    margin-bottom: var(--spacing-4);
+}
 
-        /* COMPONENTES DE FORMULARIO */
-        .form-group {
-            margin-bottom: var(--spacing-4);
-        }
+label {
+    display: block;
+    margin-bottom: var(--spacing-2);
+    font-weight: 500;
+    color: var(--color-gray-700);
+}
 
-        label {
-            display: block;
-            margin-bottom: var(--spacing-2);
-            font-weight: 500;
-            color: var(--color-gray-700);
-        }
+input, textarea, select {
+    width: 100%;
+    padding: var(--spacing-3);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-        input, textarea, select {
-            width: 100%;
-            padding: var(--spacing-3);
-            border: 1px solid var(--color-gray-300);
-            border-radius: var(--border-radius);
-            font-size: var(--font-size-base);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
+/* BOTONES */
+.btn {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
 
-        /* BOTONES */
-        .btn {
-            display: inline-block;
-            padding: var(--spacing-3) var(--spacing-6);
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: var(--font-size-base);
-            font-weight: 500;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
 
-        .btn-primary {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-        }
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+}
 
-        .btn-primary:hover {
-            background-color: var(--color-primary-dark);
-        }
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
 
-        .btn-secondary {
-            background-color: var(--color-secondary);
-            color: var(--color-white);
-        }
+.btn-secondary:hover {
+    background-color: var(--color-secondary-dark);
+}
 
-        .btn-secondary:hover {
-            background-color: var(--color-secondary-dark);
-        }
+.btn-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
 
-        .btn-outline {
-            background-color: transparent;
-            color: var(--color-primary);
-            border: 1px solid var(--color-primary);
-        }
+.btn-outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
 
-        .btn-outline:hover {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-        }
+/* HEADER Y NAVEGACIÓN */
+header {
+    background-color: var(--color-white);
+    box-shadow: var(--shadow);
+    padding: var(--spacing-4) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        /* HEADER Y NAVEGACIÓN */
-        header {
-            background-color: var(--color-white);
-            box-shadow: var(--shadow);
-            padding: var(--spacing-4) 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: var(--font-size-xl);
+    color: var(--color-gray-900);
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            font-size: var(--font-size-xl);
-            color: var(--color-gray-900);
-        }
+.logo img {
+    height: 40px;
+    margin-right: var(--spacing-3);
+}
 
-        .logo img {
-            height: 40px;
-            margin-right: var(--spacing-3);
-        }
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-6);
+}
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: var(--spacing-6);
-        }
+nav a {
+    color: var(--color-gray-700);
+    font-weight: 500;
+}
 
-        nav a {
-            color: var(--color-gray-700);
-            font-weight: 500;
-        }
+nav a:hover {
+    color: var(--color-primary);
+}
 
-        nav a:hover {
-            color: var(--color-primary);
-        }
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-4);
-        }
+/* Header Actions - Carrito */
+.cart-icon {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--color-gray-100);
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease;
+}
 
-        .cart-icon {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
+.cart-icon:hover {
+    background-color: var(--color-gray-200);
+}
 
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--font-size-xs);
-        }
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+}
 
-        /* TARJETAS DE PRODUCTO */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: var(--spacing-6);
-            margin-top: var(--spacing-6);
-        }
+/* TARJETAS DE PRODUCTO */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-6);
+}
 
-        .product-card {
-            background-color: var(--color-white);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+.product-card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
 
-        .product-image {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-        }
+.product-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
 
-        .product-info {
-            padding: var(--spacing-4);
-        }
+.product-info {
+    padding: var(--spacing-4);
+}
 
-        .product-title {
-            font-size: var(--font-size-lg);
-            font-weight: 600;
-            margin-bottom: var(--spacing-2);
-        }
+.product-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-2);
+}
 
-        .product-price {
-            font-size: var(--font-size-xl);
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: var(--spacing-4);
-        }
+.product-price {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-4);
+}
 
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-            color: var(--color-white);
-            padding: var(--spacing-10) 0;
-            text-align: center;
-        }
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--spacing-10) 0;
+    text-align: center;
+}
 
-        .hero h1 {
-            color: var(--color-white);
-            margin-bottom: var(--spacing-4);
-        }
+.hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-4);
+}
 
-        .hero p {
-            font-size: var(--font-size-xl);
-            margin-bottom: var(--spacing-6);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+.hero p {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-6);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        /* FOOTER */
-        footer {
-            background-color: var(--color-gray-800);
-            color: var(--color-gray-300);
-            padding: var(--spacing-8) 0;
-            margin-top: var(--spacing-10);
-        }
+/* FOOTER */
+footer {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-300);
+    padding: var(--spacing-8) 0;
+    margin-top: var(--spacing-10);
+}
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        /* UTILIDADES */
-        .text-center {
-            text-align: center;
-        }
+/* UTILIDADES */
+.text-center {
+    text-align: center;
+}
 
-        .mt-4 { margin-top: var(--spacing-4); }
-        .mt-6 { margin-top: var(--spacing-6); }
-        .mt-8 { margin-top: var(--spacing-8); }
-        .mb-4 { margin-bottom: var(--spacing-4); }
-        .mb-6 { margin-bottom: var(--spacing-6); }
-        .mb-8 { margin-bottom: var(--spacing-8); }
+.mt-4 { margin-top: var(--spacing-4); }
+.mt-6 { margin-top: var(--spacing-6); }
+.mt-8 { margin-top: var(--spacing-8); }
+.mb-4 { margin-bottom: var(--spacing-4); }
+.mb-6 { margin-bottom: var(--spacing-6); }
+.mb-8 { margin-bottom: var(--spacing-8); }
 
-        .hidden {
-            display: none;
-        }
+.hidden {
+    display: none;
+}
 
-        /* MENSAJES DE ALERTA */
-        .alert {
-            padding: var(--spacing-4);
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing-4);
-        }
+/* MENSAJES DE ALERTA */
+.alert {
+    padding: var(--spacing-4);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-4);
+}
 
-        .alert-success {
-            background-color: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--color-success);
-            color: var(--color-success);
-        }
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--color-success);
+    color: var(--color-success);
+}
 
-        .alert-error {
-            background-color: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--color-error);
-            color: var(--color-error);
-        }
+.alert-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--color-error);
+    color: var(--color-error);
+}
 
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: var(--spacing-4);
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: var(--spacing-4);
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                gap: var(--spacing-4);
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Store Web - Sistema de Estilos Globales</h1>
-        <p>Este archivo contiene todos los estilos base y componentes reutilizables para el proyecto.</p>
-        
-        <h2>Paleta de Colores</h2>
-        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-            <div style="width: 50px; height: 50px; background-color: #2563eb; border-radius: 5px;"></div>
-            <div style="width: 50px; height: 50px; background-color: #f59e0b; border-radius: 5px;"></div>
-            <div style="width: 50px; height: 50px; background-color: #f8fafc; border-radius: 5px; border: 1px solid #ccc;"></div>
-            <div style="width: 50px; height: 50px; background-color: #1e293b; border-radius: 5px;"></div>
-        </div>
-        
-        <h2>Tipografía</h2>
-        <h1>Encabezado H1</h1>
-        <h2>Encabezado H2</h2>
-        <h3>Encabezado H3</h3>
-        <h4>Encabezado H4</h4>
-        <p>Este es un párrafo de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        
-        <h2>Botones</h2>
-        <button class="btn btn-primary">Botón Primario</button>
-        <button class="btn btn-secondary">Botón Secundario</button>
-        <button class="btn btn-outline">Botón Outline</button>
-        
-        <h2>Formularios</h2>
-        <div class="form-group">
-            <label for="exampleInput">Campo de texto</label>
-            <input type="text" id="exampleInput" placeholder="Escribe aquí...">
-        </div>
-        <div class="form-group">
-            <label for="exampleTextarea">Área de texto</label>
-            <textarea id="exampleTextarea" rows="3" placeholder="Escribe un mensaje..."></textarea>
-        </div>
-        
-        <h2>Tarjeta de Producto</h2>
-        <div class="product-card" style="max-width: 300px;">
-            <img src="https://via.placeholder.com/300x200" alt="Producto" class="product-image">
-            <div class="product-info">
-                <h3 class="product-title">Nombre del Producto</h3>
-                <p class="product-price">$19.99</p>
-                <button class="btn btn-primary">Añadir al Carrito</button>
-            </div>
-        </div>
-        
-        <h2>Alertas</h2>
-        <div class="alert alert-success">Éxito: La operación se completó correctamente.</div>
-        <div class="alert alert-error">Error: Ha ocurrido un problema con tu solicitud.</div>
-    </div>
-</body>
-</html>
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: var(--spacing-4);
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-4);
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: var(--spacing-4);
+    }
+}

@@ -27,7 +27,9 @@
                 </ul>
             </nav>
             <div class="header-actions">
-                <a href="carrito.html" class="cart-icon">Carrito (0)</a>
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
                 <a href="login.html" class="btn btn-outline">Login</a>
                 <a href="registro.html" class="btn btn-primary">Registro</a>
             </div>
@@ -46,7 +48,7 @@
         <section class="featured-products">
             <div class="container">
                 <h2>Productos Destacados</h2>
-                <div class="products-grid">
+                <div class="products-grid" id="productos-destacados">
                     <!-- Los productos se cargarán dinámicamente con JavaScript -->
                 </div>
             </div>
@@ -55,13 +57,42 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Store Web. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="../assets/js/data.js"></script>
     <script src="../assets/js/global.js"></script>
-    <script src="js/tienda.js"></script>
+    <script>
+        // Función para cargar productos en el homepage
+        function cargarProductosDestacados() {
+            const contenedor = document.getElementById('productos-destacados');
+            
+            if (!contenedor) return;
+            
+            // Tomar los primeros 4 productos como destacados
+            const productosDestacados = productos.slice(0, 4);
+            
+            contenedor.innerHTML = productosDestacados.map(producto => `
+                <div class="product-card">
+                    <img src="${producto.imagen}" alt="${producto.nombre}" class="product-image" 
+                         onerror="this.src='https://via.placeholder.com/300x200?text=Imagen+no+disponible'">
+                    <div class="product-info">
+                        <h3 class="product-title">${producto.nombre}</h3>
+                        <p class="product-price">$${producto.precio}</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarrito(${producto.id})">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cargar productos cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarProductosDestacados();
+        });
+    </script>
 </body>
 </html>

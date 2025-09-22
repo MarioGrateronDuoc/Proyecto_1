@@ -1,3 +1,4 @@
+/* Variables CSS - Store Web */
 :root {
     /* Colores Primarios */
     --color-primary: #2563eb;
@@ -27,28 +28,28 @@
     
     /* Tipografía */
     --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-    --font-size-xs: 0.75rem;   /* 12px */
-    --font-size-sm: 0.875rem;  /* 14px */
-    --font-size-base: 1rem;    /* 16px */
-    --font-size-lg: 1.125rem;  /* 18px */
-    --font-size-xl: 1.25rem;   /* 20px */
-    --font-size-2xl: 1.5rem;   /* 24px */
-    --font-size-3xl: 1.875rem; /* 30px */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
     
     /* Espaciado */
-    --spacing-1: 0.25rem;  /* 4px */
-    --spacing-2: 0.5rem;   /* 8px */
-    --spacing-3: 0.75rem;  /* 12px */
-    --spacing-4: 1rem;     /* 16px */
-    --spacing-5: 1.25rem;  /* 20px */
-    --spacing-6: 1.5rem;   /* 24px */
-    --spacing-8: 2rem;     /* 32px */
-    --spacing-10: 2.5rem;  /* 40px */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-10: 2.5rem;
     
     /* Bordes */
-    --border-radius: 0.375rem;  /* 6px */
-    --border-radius-lg: 0.5rem; /* 8px */
-    --border-radius-xl: 0.75rem; /* 12px */
+    --border-radius: 0.375rem;
+    --border-radius-lg: 0.5rem;
+    --border-radius-xl: 0.75rem;
     
     /* Sombras */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
