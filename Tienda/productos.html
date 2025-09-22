@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Store Web</title>
+    <style>
+        :root {
+            --color-primary: #3498db;
+            --color-primary-dark: #2980b9;
+            --color-white: #ffffff;
+            --color-gray-100: #f8f9fa;
+            --color-gray-200: #e9ecef;
+            --color-gray-300: #dee2e6;
+            --color-gray-800: #343a40;
+            --border-radius: 8px;
+            --spacing-2: 0.5rem;
+            --spacing-3: 1rem;
+            --spacing-4: 1.5rem;
+            --spacing-6: 2rem;
+            --spacing-8: 3rem;
+            --spacing-10: 5rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--color-white);
+            color: var(--color-gray-800);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header IDÉNTICO al de todas tus páginas */
+        header {
+            background-color: var(--color-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+        
+        nav a:hover {
+            color: var(--color-primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-weight: 500;
+            background-color: var(--color-gray-100);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+        }
+        
+        .cart-count {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--color-primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        /* Hero Section */
+        .products-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: var(--spacing-8) 0;
+            text-align: center;
+        }
+
+        .products-hero h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .products-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Filtros y Búsqueda */
+        .products-filters {
+            background-color: var(--color-gray-100);
+            padding: var(--spacing-4) 0;
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .filters-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-3);
+        }
+        
+        .search-box {
+            display: flex;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            border-right: none;
+        }
+        
+        .search-btn {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 0 var(--spacing-4);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+        }
+        
+        .filter-select {
+            padding: var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius);
+            background-color: var(--color-white);
+        }
+        
+        /* Grid de Productos */
+        .products-section {
+            padding: var(--spacing-6) 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .product-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-4);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-3);
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-2);
+            color: var(--color-gray-800);
+            font-weight: 600;
+        }
+        
+        .product-description {
+            color: var(--color-gray-600);
+            margin-bottom: var(--spacing-3);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-3);
+        }
+        
+        /* Paginación */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-6);
+        }
+        
+        .page-btn {
+            padding: var(--spacing-2) var(--spacing-3);
+            border: 1px solid var(--color-gray-300);
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover {
+            background: var(--color-gray-100);
+        }
+        
+        .page-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--color-gray-800);
+            color: var(--color-white);
+            padding: var(--spacing-8) 0 0;
+            margin-top: var(--spacing-8);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .footer-section h4 {
+            margin-bottom: var(--spacing-3);
+            color: var(--color-primary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--color-white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: var(--spacing-3) 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 15px 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav li {
+                margin: 0 10px 10px;
+            }
+            
+            .header-actions {
+                margin-top: 10px;
+            }
+            
+            .products-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: none;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: var(--spacing-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header IDÉNTICO -->
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <span>Store Web</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="productos.html" style="color: var(--color-primary);">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon">
+                    🛒 Carrito <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="registro.html" class="btn btn-primary">Registro</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="products-hero">
+            <div class="container">
+                <h1>Nuestros Productos</h1>
+                <p>Descubre la mejor selección de productos tecnológicos con calidad garantizada y precios competitivos.</p>
+            </div>
+        </section>
+
+        <!-- Filtros y Búsqueda -->
+        <section class="products-filters">
+            <div class="container">
+                <div class="filters-container">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Buscar productos..." id="searchInput">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                    
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="">Todas las categorías</option>
+                        <option value="smartphone">Smartphones</option>
+                        <option value="laptop">Laptops</option>
+                        <option value="tablet">Tablets</option>
+                        <option value="accesorio">Accesorios</option>
+                    </select>
+                    
+                    <select class="filter-select" id="sortFilter">
+                        <option value="name">Ordenar por nombre</option>
+                        <option value="price-asc">Precio: menor a mayor</option>
+                        <option value="price-desc">Precio: mayor a menor</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de Productos -->
+        <section class="products-section">
+            <div class="container">
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </div>
+                
+                <!-- Paginación -->
+                <div class="pagination" id="pagination">
+                    <!-- La paginación se generará dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Store Web</h4>
+                    <p>Tu tienda de confianza para productos tecnológicos.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>email: info@storeweb.com</p>
+                    <p>teléfono: +56 9 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Store Web. Todos los derechos a nombre de MARIO GRATERON.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de productos de ejemplo
+        const productos = [
+            {
+                id: 1,
+                nombre: "iPhone 14 Pro",
+                descripcion: "El último smartphone de Apple con Dynamic Island y cámara de 48MP",
+                precio: 999,
+                imagen: "https://via.placeholder.com/300x200/667eea/ffffff?text=iPhone+14+Pro",
+                categoria: "smartphone",
+                stock: 15
+            },
+            {
+                id: 2,
+                nombre: "Samsung Galaxy S23",
+                descripcion: "Potente Android con cámara avanzada y pantalla Dynamic AMOLED",
+                precio: 849,
+                imagen: "https://via.placeholder.com/300x200/f093fb/ffffff?text=Galaxy+S23",
+                categoria: "smartphone",
+                stock: 20
+            },
+            {
+                id: 3,
+                nombre: "MacBook Air M2",
+                descripcion: "Laptop ultradelgada con chip M2 y pantalla Liquid Retina",
+                precio: 1199,
+                imagen: "https://via.placeholder.com/300x200/4facfe/ffffff?text=MacBook+Air",
+                categoria: "laptop",
+                stock: 8
+            },
+            {
+                id: 4,
+                nombre: "iPad Pro 12.9",
+                descripcion: "Tablet profesional con chip M2 y pantalla Liquid Retina XDR",
+                precio: 1099,
+                imagen: "https://via.placeholder.com/300x200/43e97b/ffffff?text=iPad+Pro",
+                categoria: "tablet",
+                stock: 12
+            },
+            {
+                id: 5,
+                nombre: "AirPods Pro",
+                descripcion: "Audífonos inalámbricos con cancelación activa de ruido",
+                precio: 249,
+                imagen: "https://via.placeholder.com/300x200/ff9a9e/ffffff?text=AirPods+Pro",
+                categoria: "accesorio",
+                stock: 30
+            },
+            {
+                id: 6,
+                nombre: "Dell XPS 13",
+                descripcion: "Laptop compacta con pantalla InfinityEdge y procesador Intel",
+                precio: 999,
+                imagen: "https://via.placeholder.com/300x200/a8edea/ffffff?text=Dell+XPS",
+                categoria: "laptop",
+                stock: 10
+            },
+            {
+                id: 7,
+                nombre: "Samsung Tab S8",
+                descripcion: "Tablet Android con S Pen incluido y pantalla de 11 pulgadas",
+                precio: 699,
+                imagen: "https://via.placeholder.com/300x200/d4fc79/ffffff?text=Tab+S8",
+                categoria: "tablet",
+                stock: 18
+            },
+            {
+                id: 8,
+                nombre: "Google Pixel 7",
+                descripcion: "Smartphone con la mejor cámara de Google y Android puro",
+                precio: 599,
+                imagen: "https://via.placeholder.com/300x200/96e6a1/ffffff?text=Pixel+7",
+                categoria: "smartphone",
+                stock: 25
+            }
+        ];
+
+        // Variables de paginación
+        let currentPage = 1;
+        const productsPerPage = 8;
+        let filteredProducts = [...productos];
+
+        // Función para cargar productos en el grid
+        function cargarProductos() {
+            const grid = document.getElementById('productsGrid');
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+
+            grid.innerHTML = productsToShow.map(producto => `
+                <div class="product-card" onclick="redirigirADetalle(${producto.id})">
+                    <img src="${producto.imagen}" alt="${producto.nombre}" class="product-image" 
+                         onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=Imagen+no+disponible'">
+                    <div class="product-info">
+                        <h3 class="product-title">${producto.nombre}</h3>
+                        <p class="product-description">${producto.descripcion}</p>
+                        <p class="product-price">$${producto.precio}</p>
+                        <button class="btn btn-primary" onclick="event.stopPropagation(); agregarAlCarrito(${producto.id})">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            actualizarPaginacion();
+        }
+
+        // Función para actualizar la paginación
+        function actualizarPaginacion() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            
+            let paginationHTML = '';
+            
+            if (totalPages > 1) {
+                for (let i = 1; i <= totalPages; i++) {
+                    paginationHTML += `
+                        <button class="page-btn ${i === currentPage ? 'active' : ''}" 
+                                onclick="cambiarPagina(${i})">${i}</button>
+                    `;
+                }
+            }
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        // Función para cambiar de página
+        function cambiarPagina(page) {
+            currentPage = page;
+            cargarProductos();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Función para redirigir al detalle del producto
+        function redirigirADetalle(id) {
+            window.location.href = `detalle-producto.html?id=${id}`;
+        }
+
+        // Función para agregar al carrito
+        function agregarAlCarrito(id) {
+            const producto = productos.find(p => p.id === id);
+            if (!producto) return;
+
+            let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const productoExistente = carrito.find(item => item.id === id);
+
+            if (productoExistente) {
+                if (productoExistente.cantidad < producto.stock) {
+                    productoExistente.cantidad++;
+                } else {
+                    alert('No hay suficiente stock disponible');
+                    return;
+                }
+            } else {
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    precio: producto.precio,
+                    imagen: producto.imagen,
+                    cantidad: 1
+                });
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarContadorCarrito();
+            
+            // Mostrar feedback visual
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Añadido';
+            btn.style.backgroundColor = '#27ae60';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.backgroundColor = '';
+            }, 1500);
+        }
+
+        // Función para actualizar el contador del carrito
+        function actualizarContadorCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            
+            const contadores = document.querySelectorAll('.cart-count');
+            contadores.forEach(contador => {
+                contador.textContent = totalItems;
+            });
+        }
+
+        // Filtros y búsqueda
+        function aplicarFiltros() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            filteredProducts = productos.filter(producto => {
+                const matchesSearch = producto.nombre.toLowerCase().includes(searchTerm) || 
+                                    producto.descripcion.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || producto.categoria === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            // Ordenar
+            if (sort === 'name') {
+                filteredProducts.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            } else if (sort === 'price-asc') {
+                filteredProducts.sort((a, b) => a.precio - b.precio);
+            } else if (sort === 'price-desc') {
+                filteredProducts.sort((a, b) => b.precio - a.precio);
+            }
+
+            currentPage = 1;
+            cargarProductos();
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarProductos();
+            actualizarContadorCarrito();
+
+            // Event listeners para filtros
+            document.getElementById('searchInput').addEventListener('input', aplicarFiltros);
+            document.getElementById('categoryFilter').addEventListener('change', aplicarFiltros);
+            document.getElementById('sortFilter').addEventListener('change', aplicarFiltros);
+            document.querySelector('.search-btn').addEventListener('click', aplicarFiltros);
+        });
+    </script>
+</body>
+</html>
