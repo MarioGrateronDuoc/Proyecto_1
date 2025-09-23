@@ -17,16 +17,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Validación del formulario al enviar
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const isEmailValid = validateEmail();
-        const isPasswordValid = validatePassword();
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
 
-        if (isEmailValid && isPasswordValid) {
-            attemptLogin();
-        }
-    });
+            if (isEmailValid && isPasswordValid) {
+                attemptLogin();
+            }
+        });
+    }
 
     function validateEmail() {
         const email = emailInput.value.trim();
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = passwordInput.value;
 
         // Simulación de usuarios (esto vendría de una base de datos)
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const users = JSON.parse(localStorage.getItem('usuarios') || '[]');
         
         // Buscar usuario
         const user = users.find(u => u.email === email && u.password === password);
@@ -81,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Redirigir después de 1 segundo
             setTimeout(() => {
-                redirectUser(user.tipo);
+                redirectUser(user.rol);
             }, 1000);
         } else {
             showNotification('Credenciales incorrectas. Verifica tu email y contraseña.', 'error');
@@ -90,14 +92,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function redirectUser(userType) {
         switch(userType) {
-            case 'administrador':
-                window.location.href = 'admin/index.html';
+            case 'Administrador':
+            case 'Vendedor':
+                // Redirección al panel de administración. Se sube un nivel (..) y luego se entra a la carpeta Admin/
+                window.location.href = '../Admin/home.html';
                 break;
-            case 'vendedor':
-                window.location.href = 'admin/index.html';
-                break;
-            case 'cliente':
+            case 'Cliente':
             default:
+                // Redirección a la página principal de la tienda
                 window.location.href = 'index.html';
                 break;
         }
@@ -116,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             font-weight: 600;
             z-index: 1000;
             animation: slideIn 0.3s ease;
-            ${type === 'success' ? 'background: var(--color-success);' : 'background: var(--color-error);'}
+            ${type === 'success' ? 'background: var(--color-success);' : type === 'error' ? 'background: var(--color-error);' : 'background: var(--color-info);'}
         `;
         notification.textContent = message;
         
@@ -127,20 +129,34 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.remove();
         }, 3000);
     }
-
-    // Verificar si ya hay una sesión activa
-    function checkExistingSession() {
+    
+    // Función mejorada para manejar la sesión
+    function handleExistingSession() {
         const currentUser = localStorage.getItem('currentUser');
         if (currentUser) {
             const user = JSON.parse(currentUser);
-            showNotification('Ya hay una sesión activa para ' + user.email, 'info');
-            // Redirigir automáticamente
-            setTimeout(() => {
-                redirectUser(user.tipo);
-            }, 2000);
+            const loginContainer = document.querySelector('.login-container');
+            
+            if (loginContainer) {
+                loginContainer.innerHTML = `
+                    <div style="text-align: center;">
+                        <h2 style="color: var(--color-primary); margin-bottom: 1rem;">Ya estás conectado</h2>
+                        <p>Has iniciado sesión como <strong>${user.nombre}</strong> (${user.rol}).</p>
+                        <p>¿Qué te gustaría hacer?</p>
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                            <a href="index.html" class="btn btn-primary">Volver a la Tienda</a>
+                            <button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', function() {
+                    localStorage.removeItem('currentUser');
+                    window.location.reload();
+                });
+            }
         }
     }
 
     // Ejecutar verificación al cargar la página
-    checkExistingSession();
+    handleExistingSession();
 });

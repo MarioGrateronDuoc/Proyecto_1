@@ -138,14 +138,13 @@
                 <a href="carrito.html" class="cart-icon">
                     🛒 Carrito <span class="cart-count">0</span>
                 </a>
-                <a href="login.html" class="btn btn-outline">Login</a>
-                <a href="registro.html" class="btn btn-primary">Registro</a>
+                <a href="login.html" class="btn btn-outline" id="login-link">Login</a>
+                <a href="registro.html" class="btn btn-primary" id="register-link">Registro</a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
                 <h1>Bienvenido a Store Web</h1>
@@ -154,20 +153,17 @@
             </div>
         </section>
 
-        <!-- Productos Destacados -->
         <section class="featured-products">
             <div class="container">
                 <h2>Productos Destacados</h2>
                 <div class="products-grid" id="productos-destacados">
-                    <!-- Los productos se cargarán dinámicamente -->
-                </div>
+                    </div>
                 <div style="text-align: center;">
                     <a href="productos.html" class="btn btn-outline">Ver Todos los Productos</a>
                 </div>
             </div>
         </section>
 
-        <!-- Newsletter -->
         <section class="newsletter">
             <div class="container">
                 <h3>Suscríbete a nuestro Newsletter</h3>
@@ -207,7 +203,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="../assets/js/data.js"></script>
     <script src="../assets/js/global.js"></script>
     <script>
@@ -254,7 +249,40 @@
         document.addEventListener('DOMContentLoaded', () => {
             cargarProductosDestacados();
             cargarCarrito(); // Asegurar que el contador del carrito se actualice
+            revisarSesionAdmin(); // Nuevo: Revisar la sesión de administrador
         });
+
+        // Nueva función para revisar la sesión de administrador
+        function revisarSesionAdmin() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const headerActions = document.querySelector('.header-actions');
+
+            if (user && user.rol === 'Administrador') {
+                // Eliminar los enlaces de login y registro
+                const loginLink = document.getElementById('login-link');
+                const registerLink = document.getElementById('register-link');
+                if (loginLink) loginLink.remove();
+                if (registerLink) registerLink.remove();
+
+                // Crear y añadir el enlace al panel de administración
+                const adminLink = document.createElement('a');
+                adminLink.href = '../Admin/home.html';
+                adminLink.className = 'btn btn-outline';
+                adminLink.textContent = 'Panel Admin';
+                headerActions.appendChild(adminLink);
+
+                // Reemplazar "Login" por "Cerrar Sesión"
+                const logoutLink = document.createElement('a');
+                logoutLink.href = '#';
+                logoutLink.className = 'btn btn-primary';
+                logoutLink.textContent = 'Cerrar Sesión';
+                logoutLink.onclick = () => {
+                    localStorage.removeItem('currentUser');
+                    location.reload(); // Recargar la página para actualizar la vista
+                };
+                headerActions.appendChild(logoutLink);
+            }
+        }
     </script>
 </body>
 </html>

@@ -9,7 +9,6 @@
 </head>
 <body>
     <div class="admin-container">
-        <!-- Menú lateral -->
         <aside class="admin-sidebar">
             <div class="admin-sidebar-header">
                 <h2><i class="fas fa-cog"></i> Panel Admin</h2>
@@ -26,7 +25,6 @@
             </nav>
         </aside>
 
-        <!-- Contenido principal -->
         <main class="admin-main">
             <header class="admin-header">
                 <h1>Dashboard de Administración</h1>
@@ -52,7 +50,6 @@
                 </div>
             </section>
 
-            <!-- Acciones rápidas -->
             <section class="quick-actions">
                 <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     <h3 style="margin-bottom: 20px; color: #1e3a5c;">Acciones Rápidas</h3>
@@ -72,5 +69,16 @@
     </div>
 
     <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar total de productos desde localStorage
+            const productos = JSON.parse(localStorage.getItem('productos')) || [];
+            document.getElementById('total-productos').textContent = productos.length;
+
+            // Cargar total de usuarios desde localStorage
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            document.getElementById('total-usuarios').textContent = usuarios.length;
+        });
+    </script>
 </body>
 </html>

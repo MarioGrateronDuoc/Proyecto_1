@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Producto - Panel de Administración</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .form-container h2 {
+            font-size: 1.5rem;
+            color: #1e3a5c;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: #0a73c1;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(10, 115, 193, 0.25);
+        }
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <h2><i class="fas fa-cog"></i> Panel Admin</h2>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="../home.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="listar.html" class="active"><i class="fas fa-box"></i> Productos</a></li>
+                    <li><a href="../usuarios/listar.html"><i class="fas fa-users"></i> Usuarios</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+                    <li><a href="../../Tienda/index.html"><i class="fas fa-store"></i> Ver Tienda</a></li>
+                    <li><a href="#" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Crear Nuevo Producto</h1>
+            </header>
+            
+            <div class="form-container">
+                <form id="createProductForm">
+                    <h2>Agregar Producto</h2>
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Producto</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">Seleccione una categoría</option>
+                            <option value="smartphone">Smartphones</option>
+                            <option value="laptop">Laptops</option>
+                            <option value="tablet">Tablets</option>
+                            <option value="accesorio">Accesorios</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio</label>
+                        <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="number" id="stock" name="stock" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen">URL de la Imagen</label>
+                        <input type="url" id="imagen" name="imagen" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">CREAR PRODUCTO</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        document.getElementById('createProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const categoria = document.getElementById('categoria').value;
+            const precio = parseFloat(document.getElementById('precio').value);
+            const stock = parseInt(document.getElementById('stock').value);
+            const imagen = document.getElementById('imagen').value;
+
+            // Obtener productos existentes del localStorage
+            const productos = JSON.parse(localStorage.getItem('productos')) || [];
+            
+            // Crear nuevo objeto de producto
+            const nuevoProducto = {
+                id: Date.now(), // Usar un timestamp para un ID único
+                nombre,
+                descripcion,
+                categoria,
+                precio,
+                stock,
+                imagen,
+                fechaCreacion: new Date().toISOString()
+            };
+
+            // Añadir el nuevo producto a la lista
+            productos.push(nuevoProducto);
+            
+            // Guardar la lista actualizada en el localStorage
+            localStorage.setItem('productos', JSON.stringify(productos));
+
+            alert(`Producto "${nuevoProducto.nombre}" creado exitosamente.`);
+            
+            // Redirigir a la página de listado de productos
+            window.location.href = 'listar.html';
+        });
+    </script>
+</body>
+</html>

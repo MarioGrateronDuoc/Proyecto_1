@@ -2,6 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Panel de administración cargado');
     
+    // Inicializar datos de ejemplo si no existen
+    inicializarDatosEjemplo();
+    
     // Cargar estadísticas
     cargarEstadisticas();
     
@@ -11,6 +14,79 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar navegación
     inicializarNavegacion();
 });
+
+// INICIALIZAR DATOS DE EJEMPLO
+function inicializarDatosEjemplo() {
+    // Datos de productos de ejemplo
+    if (!localStorage.getItem('productos')) {
+        const productosEjemplo = [
+            { 
+                id: 1, 
+                nombre: "iPhone 14 Pro", 
+                descripcion: "El último smartphone de Apple con Dynamic Island", 
+                precio: 999, 
+                imagen: "https://via.placeholder.com/300x200/667eea/ffffff?text=iPhone+14+Pro", 
+                categoria: "smartphone", 
+                stock: 15 
+            },
+            { 
+                id: 2, 
+                nombre: "Samsung Galaxy S23", 
+                descripcion: "Potente smartphone Android con cámara profesional", 
+                precio: 849, 
+                imagen: "https://via.placeholder.com/300x200/f093fb/ffffff?text=Galaxy+S23", 
+                categoria: "smartphone", 
+                stock: 20 
+            },
+            { 
+                id: 3, 
+                nombre: "MacBook Air M2", 
+                descripcion: "Laptop ultradelgada con chip M2 de Apple", 
+                precio: 1199, 
+                imagen: "https://via.placeholder.com/300x200/4facfe/ffffff?text=MacBook+Air", 
+                categoria: "laptop", 
+                stock: 8 
+            }
+        ];
+        localStorage.setItem('productos', JSON.stringify(productosEjemplo));
+    }
+
+    // Datos de usuarios de ejemplo
+    if (!localStorage.getItem('usuarios')) {
+        const usuariosEjemplo = [
+            { 
+                id: 1, 
+                nombre: "Juan Pérez", 
+                email: "juan.perez@example.com", 
+                rol: "Administrador", 
+                estado: "Activo",
+                region: "Región Metropolitana de Santiago",
+                comuna: "Santiago"
+            },
+            { 
+                id: 2, 
+                nombre: "María García", 
+                email: "maria.garcia@example.com", 
+                rol: "Cliente", 
+                estado: "Activo",
+                region: "Región Metropolitana de Santiago", 
+                comuna: "Providencia"
+            }
+        ];
+        localStorage.setItem('usuarios', JSON.stringify(usuariosEjemplo));
+    }
+
+    // Usuario actual de ejemplo (para evitar redirección al login)
+    if (!localStorage.getItem('usuarioActual')) {
+        const usuarioActual = {
+            id: 1,
+            nombre: "Administrador",
+            email: "admin@tienda.com",
+            rol: "Administrador"
+        };
+        localStorage.setItem('usuarioActual', JSON.stringify(usuarioActual));
+    }
+}
 
 // CARGAR ESTADÍSTICAS DESDE LOCALSTORAGE
 function cargarEstadisticas() {
@@ -79,8 +155,7 @@ function cerrarSesion() {
     }
 }
 
-// MENSAJES DE CONSOLA PARA DEBUG
-console.log('=== PANEL ADMIN CARGADO ===');
-console.log('Productos en localStorage:', JSON.parse(localStorage.getItem('productos')) || []);
-console.log('Usuarios en localStorage:', JSON.parse(localStorage.getItem('usuarios')) || []);
-console.log('Usuario actual:', JSON.parse(localStorage.getItem('usuarioActual')));
+// FUNCIÓN PARA GENERAR ID ÚNICO
+function generarId() {
+    return Date.now() + Math.floor(Math.random() * 1000);
+}

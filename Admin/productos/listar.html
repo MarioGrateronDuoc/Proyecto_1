@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos - Panel de Administración</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos específicos para la tabla de listado (pueden ser los mismos que en usuarios) */
+        .content-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .controls-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .controls-header h2 {
+            font-size: 1.5rem;
+            color: #1e3a5c;
+        }
+        .btn-new {
+            background-color: #0a73c1;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-new:hover {
+            background-color: #085a96;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .data-table thead th {
+            background-color: #e9ecef;
+            color: #495057;
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .data-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+        .data-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .product-image-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .action-buttons a {
+            color: #0a73c1;
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        .action-buttons a:hover {
+            color: #085a96;
+        }
+        .action-buttons .btn-delete {
+            color: #dc3545;
+        }
+        .action-buttons .btn-delete:hover {
+            color: #a71d2a;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #495057;
+            transition: background-color 0.2s;
+        }
+        .pagination a:hover {
+            background-color: #e9ecef;
+        }
+        .pagination .active {
+            background-color: #0a73c1;
+            color: white;
+            border-color: #0a73c1;
+        }
+        .pagination .disabled {
+            color: #adb5bd;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <h2><i class="fas fa-cog"></i> Panel Admin</h2>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="../home.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="listar.html" class="active"><i class="fas fa-box"></i> Productos</a></li>
+                    <li><a href="../usuarios/listar.html"><i class="fas fa-users"></i> Usuarios</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+                    <li><a href="../../Tienda/index.html"><i class="fas fa-store"></i> Ver Tienda</a></li>
+                    <li><a href="#" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Gestión de Productos</h1>
+            </header>
+
+            <div class="content-container">
+                <div class="controls-header">
+                    <h2>Listado de Productos</h2>
+                    <a href="crear.html" class="btn-new"><i class="fas fa-plus"></i> Nuevo Producto</a>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        // Cargar productos desde localStorage
+        function obtenerProductos() {
+            // Productos por defecto si no existen en localStorage
+            const defaultProducts = [
+                { id: 1, nombre: "iPhone 14 Pro", descripcion: "...", precio: 999, imagen: "https://via.placeholder.com/300x200/667eea/ffffff?text=iPhone+14+Pro", categoria: "smartphone", stock: 15 },
+                { id: 2, nombre: "Samsung Galaxy S23", descripcion: "...", precio: 849, imagen: "https://via.placeholder.com/300x200/f093fb/ffffff?text=Galaxy+S23", categoria: "smartphone", stock: 20 },
+                { id: 3, nombre: "MacBook Air M2", descripcion: "...", precio: 1199, imagen: "https://via.placeholder.com/300x200/4facfe/ffffff?text=MacBook+Air", categoria: "laptop", stock: 8 },
+                { id: 4, nombre: "iPad Pro 12.9", descripcion: "...", precio: 1099, imagen: "https://via.placeholder.com/300x200/43e97b/ffffff?text=iPad+Pro", categoria: "tablet", stock: 12 },
+                { id: 5, nombre: "AirPods Pro", descripcion: "...", precio: 249, imagen: "https://via.placeholder.com/300x200/ff9a9e/ffffff?text=AirPods+Pro", categoria: "accesorio", stock: 30 },
+                { id: 6, nombre: "Dell XPS 13", descripcion: "...", precio: 999, imagen: "https://via.placeholder.com/300x200/a8edea/ffffff?text=Dell+XPS", categoria: "laptop", stock: 10 },
+                { id: 7, nombre: "Samsung Tab S8", descripcion: "...", precio: 699, imagen: "https://via.placeholder.com/300x200/d4fc79/ffffff?text=Tab+S8", categoria: "tablet", stock: 18 },
+                { id: 8, nombre: "Google Pixel 7", descripcion: "...", precio: 599, imagen: "https://via.placeholder.com/300x200/96e6a1/ffffff?text=Pixel+7", categoria: "smartphone", stock: 25 }
+            ];
+
+            const productos = JSON.parse(localStorage.getItem('productos'));
+            
+            // Si no hay productos en localStorage, los inicializamos con los datos por defecto
+            if (!productos || productos.length === 0) {
+                localStorage.setItem('productos', JSON.stringify(defaultProducts));
+                return defaultProducts;
+            }
+            return productos;
+        }
+
+        function guardarProductos(productos) {
+            localStorage.setItem('productos', JSON.stringify(productos));
+        }
+
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        function renderizarTabla(data) {
+            const tableBody = document.querySelector('.data-table tbody');
+            tableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const itemsToShow = data.slice(startIndex, endIndex);
+
+            itemsToShow.forEach(producto => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${producto.id}</td>
+                    <td><img src="${producto.imagen}" alt="${producto.nombre}" class="product-image-thumb"></td>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.categoria}</td>
+                    <td>$${producto.precio.toFixed(2)}</td>
+                    <td>${producto.stock}</td>
+                    <td class="action-buttons">
+                        <a href="editar.html?id=${producto.id}" title="Editar"><i class="fas fa-edit"></i></a>
+                        <a href="#" class="btn-delete" title="Eliminar" onclick="eliminarProducto(${producto.id}, event)"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function renderizarPaginacion(data) {
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                if (i === currentPage) {
+                    pageLink.classList.add('active');
+                }
+                pageLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    renderizarTabla(data);
+                    renderizarPaginacion(data);
+                });
+                paginationContainer.appendChild(pageLink);
+            }
+        }
+
+        function eliminarProducto(id, event) {
+            event.preventDefault();
+            if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${id}?`)) {
+                let productos = obtenerProductos();
+                productos = productos.filter(producto => producto.id !== id);
+                guardarProductos(productos);
+                renderizarTabla(productos);
+                renderizarPaginacion(productos);
+                alert(`Producto con ID ${id} eliminado.`);
+            }
+        }
+
+        // Inicializar la tabla y la paginación al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const productos = obtenerProductos();
+            renderizarTabla(productos);
+            renderizarPaginacion(productos);
+        });
+    </script>
+</body>
+</html>

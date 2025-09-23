@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Usuario - Panel de Administración</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .form-container h2 {
+            font-size: 1.5rem;
+            color: #1e3a5c;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #0a73c1;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(10, 115, 193, 0.25);
+        }
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+        /* Fila horizontal para Región y Comuna */
+        .region-comuna-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <h2><i class="fas fa-cog"></i> Panel Admin</h2>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="../home.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="../productos/listar.html"><i class="fas fa-box"></i> Productos</a></li>
+                    <li><a href="listar.html" class="active"><i class="fas fa-users"></i> Usuarios</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+                    <li><a href="../../Tienda/index.html"><i class="fas fa-store"></i> Ver Tienda</a></li>
+                    <li><a href="#" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Crear Nuevo Usuario</h1>
+            </header>
+            
+            <div class="form-container">
+                <form id="createUserForm">
+                    <h2>Registro de usuario</h2>
+                    <div class="form-group">
+                        <label for="nombre">NOMBRE COMPLETO</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Ingresa el nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">CORREO</label>
+                        <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">CONTRASEÑA</label>
+                        <input type="password" id="password" name="password" required placeholder="Entre 4 y 10 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">CONFIRMAR CONTRASEÑA</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Repite la contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">TELÉFONO (opcional)</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678">
+                    </div>
+
+                    <div class="region-comuna-row">
+                        <div class="form-group">
+                            <label for="region">REGIÓN</label>
+                            <select id="region" name="region" required>
+                                <option value="">- Seleccione la región -</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comuna">COMUNA</label>
+                            <select id="comuna" name="comuna" required disabled>
+                                <option value="">- Seleccione la comuna -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol">Rol del Usuario</label>
+                        <select id="rol" name="rol" required>
+                            <option value="Cliente">Cliente</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">REGISTRAR</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        // Datos de regiones y comunas
+        const regionesComunas = [
+            {
+                id: "metropolitana",
+                nombre: "Región Metropolitana de Santiago",
+                comunas: ["Santiago", "Providencia", "Las Condes", "Ñuñoa", "Maipú", "La Florida", "Puente Alto"]
+            },
+            {
+                id: "araucania", 
+                nombre: "Región de la Araucanía",
+                comunas: ["Temuco", "Padre Las Casas", "Villarrica", "Pucón", "Angol", "Victoria"]
+            },
+            {
+                id: "nuble",
+                nombre: "Región de Ñuble", 
+                comunas: ["Chillán", "Chillán Viejo", "Bulnes", "Quirihue", "San Carlos"]
+            },
+            {
+                id: "maule",
+                nombre: "Región del Maule",
+                comunas: ["Linares", "Longaví", "Talca", "Curicó", "Constitución"]
+            },
+            {
+                id: "biobio",
+                nombre: "Región del Biobío",
+                comunas: ["Concepción", "Talcahuano", "Chiguayante", "San Pedro de la Paz"]
+            }
+        ];
+
+        // Función para cargar regiones en el select
+        function cargarRegiones() {
+            const selectRegion = document.getElementById('region');
+            regionesComunas.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region.id;
+                option.textContent = region.nombre;
+                selectRegion.appendChild(option);
+            });
+        }
+
+        // Función para cargar comunas según región seleccionada
+        function cargarComunas(regionId) {
+            const selectComuna = document.getElementById('comuna');
+            selectComuna.innerHTML = '<option value="">- Seleccione la comuna -</option>';
+            const region = regionesComunas.find(r => r.id === regionId);
+            if (region) {
+                region.comunas.forEach(comuna => {
+                    const option = document.createElement('option');
+                    option.value = comuna.toLowerCase().replace(/ /g, '_');
+                    option.textContent = comuna;
+                    selectComuna.appendChild(option);
+                });
+                selectComuna.disabled = false;
+            } else {
+                selectComuna.disabled = true;
+                selectComuna.innerHTML = '<option value="">- Seleccione la comuna -</option>';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar regiones al iniciar
+            cargarRegiones();
+
+            // Evento para cambiar comunas cuando se selecciona región
+            document.getElementById('region').addEventListener('change', function() {
+                cargarComunas(this.value);
+            });
+
+            document.getElementById('createUserForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const nombre = document.getElementById('nombre').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const telefono = document.getElementById('telefono').value;
+                const region = document.getElementById('region').value;
+                const comuna = document.getElementById('comuna').value;
+                const rol = document.getElementById('rol').value;
+
+                // Validación básica
+                if (password !== confirmPassword) {
+                    alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
+                    return;
+                }
+                if (!region || !comuna) {
+                    alert('Por favor, selecciona una región y una comuna.');
+                    return;
+                }
+
+                // Obtener usuarios existentes
+                const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+                
+                // Crear nuevo usuario
+                const nuevoUsuario = {
+                    id: Date.now(), // ID único basado en timestamp
+                    nombre,
+                    email,
+                    password, // En un caso real, esto debería estar encriptado
+                    telefono,
+                    rol,
+                    region: document.getElementById('region').options[document.getElementById('region').selectedIndex].text,
+                    comuna: document.getElementById('comuna').options[document.getElementById('comuna').selectedIndex].text,
+                    estado: 'Activo',
+                    fechaCreacion: new Date().toISOString()
+                };
+
+                // Agregar a la lista
+                usuarios.push(nuevoUsuario);
+                
+                // Guardar en localStorage
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+                alert(`Usuario "${nuevoUsuario.nombre}" registrado exitosamente como ${nuevoUsuario.rol}.`);
+                
+                window.location.href = 'listar.html';
+            });
+        });
+    </script>
+</body>
+</html>
