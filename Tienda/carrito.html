@@ -220,7 +220,7 @@
     <header>
         <div class="container">
             <a href="index.html" class="logo">
-                <img src="../assets/img/logo.png" alt="Store Web Logo">
+                <img src="../assets/img/logo.jpg" alt="Store Web Logo">
                 <span>Store Web</span>
             </a>
             <nav>
@@ -485,70 +485,73 @@
             }
         }
 
-        // Función para mostrar el carrito
-        function mostrarCarrito() {
-            const cartContainer = document.getElementById('cart-items-container');
-            const cartSummary = document.getElementById('cart-summary');
-            const emptyCart = document.getElementById('empty-cart');
+// En carritos.html, modifica la función mostrarCarrito()
+function mostrarCarrito() {
+    const cartContainer = document.getElementById('cart-items-container');
+    const cartSummary = document.getElementById('cart-summary');
+    const emptyCart = document.getElementById('empty-cart');
 
-            if (carrito.length === 0) {
-                cartContainer.innerHTML = '';
-                cartSummary.style.display = 'none';
-                emptyCart.style.display = 'block';
-                return;
-            }
+    if (carrito.length === 0) {
+        cartContainer.innerHTML = '';
+        cartSummary.style.display = 'none';
+        emptyCart.style.display = 'block';
+        return;
+    }
 
-            emptyCart.style.display = 'none';
-            cartSummary.style.display = 'block';
+    emptyCart.style.display = 'none';
+    cartSummary.style.display = 'block';
 
-            // Mostrar items del carrito
-            cartContainer.innerHTML = carrito.map(item => {
-                // Asegurarse de que la cantidad a eliminar sea válida
-                if (!cantidadesAEliminar[item.id] || cantidadesAEliminar[item.id] > item.cantidad) {
-                    cantidadesAEliminar[item.id] = 1;
-                }
-                
-                return `
-                <div class="cart-item">
-                    <img src="${item.imagen}" alt="${item.nombre}" class="cart-item-image"
-                         onerror="this.src='https://via.placeholder.com/100x100?text=Imagen'">
-                    
-                    <div class="cart-item-info">
-                        <h3>${item.nombre}</h3>
-                        <p class="cart-item-price">$${item.precio} c/u</p>
-                        <p><strong>En carrito:</strong> ${item.cantidad} ${item.cantidad === 1 ? 'unidad' : 'unidades'}</p>
-                    </div>
-
-                    <div class="cart-item-controls">
-                        <div class="delete-controls">
-                            <p>¿Cuántas eliminar?</p>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="cambiarCantidadEliminar(${item.id}, -1)">-</button>
-                                <span class="quantity-number" id="delete-amount-${item.id}">${cantidadesAEliminar[item.id]}</span>
-                                <button class="quantity-btn" onclick="cambiarCantidadEliminar(${item.id}, 1)">+</button>
-                            </div>
-                            <button class="remove-btn" onclick="eliminarCantidadSeleccionada(${item.id})">
-                                ❌ Eliminar <span id="delete-text-${item.id}">${cantidadesAEliminar[item.id]} ${cantidadesAEliminar[item.id] === 1 ? 'unidad' : 'unidades'}</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="cart-item-total">
-                        $${item.precio * item.cantidad}
-                    </div>
-                </div>
-                `;
-            }).join('');
-
-            // Calcular totales
-            const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            const shipping = subtotal > 0 ? 5000 : 0;
-            const total = subtotal + shipping;
-
-            document.getElementById('subtotal').textContent = `$${subtotal}`;
-            document.getElementById('shipping').textContent = shipping > 0 ? `$${shipping}` : 'Gratis';
-            document.getElementById('total').textContent = `$${total}`;
+    // Mostrar items del carrito
+    cartContainer.innerHTML = carrito.map(item => {
+        // Asegurarse de que la cantidad a eliminar sea válida
+        if (!cantidadesAEliminar[item.id] || cantidadesAEliminar[item.id] > item.cantidad) {
+            cantidadesAEliminar[item.id] = 1;
         }
+        
+        // CORREGIR: Usar la ruta de imagen guardada en el carrito
+        const imagenSrc = item.imagen || 'https://via.placeholder.com/100x100?text=Imagen';
+        
+        return `
+        <div class="cart-item">
+            <img src="${imagenSrc}" alt="${item.nombre}" class="cart-item-image"
+                 onerror="this.src='https://via.placeholder.com/100x100?text=Imagen'">
+            
+            <div class="cart-item-info">
+                <h3>${item.nombre}</h3>
+                <p class="cart-item-price">$${item.precio} c/u</p>
+                <p><strong>En carrito:</strong> ${item.cantidad} ${item.cantidad === 1 ? 'unidad' : 'unidades'}</p>
+            </div>
+
+            <div class="cart-item-controls">
+                <div class="delete-controls">
+                    <p>¿Cuántas eliminar?</p>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="cambiarCantidadEliminar(${item.id}, -1)">-</button>
+                        <span class="quantity-number" id="delete-amount-${item.id}">${cantidadesAEliminar[item.id]}</span>
+                        <button class="quantity-btn" onclick="cambiarCantidadEliminar(${item.id}, 1)">+</button>
+                    </div>
+                    <button class="remove-btn" onclick="eliminarCantidadSeleccionada(${item.id})">
+                        ❌ Eliminar <span id="delete-text-${item.id}">${cantidadesAEliminar[item.id]} ${cantidadesAEliminar[item.id] === 1 ? 'unidad' : 'unidades'}</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="cart-item-total">
+                $${item.precio * item.cantidad}
+            </div>
+        </div>
+        `;
+    }).join('');
+
+    // Calcular totales
+    const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    const shipping = subtotal > 0 ? 5000 : 0;
+    const total = subtotal + shipping;
+
+    document.getElementById('subtotal').textContent = `$${subtotal}`;
+    document.getElementById('shipping').textContent = shipping > 0 ? `$${shipping}` : 'Gratis';
+    document.getElementById('total').textContent = `$${total}`;
+}
 
         // Función para proceder al pago (placeholder)
         function procederAlPago() {

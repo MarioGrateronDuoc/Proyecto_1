@@ -12,7 +12,7 @@ const productos = [
         id: 2,
         nombre: "Smartphone Flagship",
         precio: 800,
-        imagen: "../assets/img/productos/smartphone.jpg",
+        imagen: "../assets/img/productos/phone.jpg",
         categoria: "tecnologia",
         descripcion: "Último modelo con todas las características"
     },
