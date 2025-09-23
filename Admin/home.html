@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Tienda Online</title>
+    <link rel="stylesheet" href="C:\Users\licer\Desktop\Tienda_Online\Admin\css\admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Menú lateral -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <h2><i class="fas fa-cog"></i> Panel Admin</h2>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="home.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="productos/listar.html"><i class="fas fa-box"></i> Productos</a></li>
+                    <li><a href="usuarios/listar.html"><i class="fas fa-users"></i> Usuarios</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> Pedidos</a></li>
+                    <li><a href="../Tienda/index.html"><i class="fas fa-store"></i> Ver Tienda</a></li>
+                    <li><a href="#" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Dashboard de Administración</h1>
+                <p id="user-info">Bienvenido al panel de control</p>
+            </header>
+
+            <section class="admin-stats">
+                <div class="stat-card">
+                    <h3><i class="fas fa-box"></i> Total Productos</h3>
+                    <p id="total-productos">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-users"></i> Total Usuarios</h3>
+                    <p id="total-usuarios">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-shopping-cart"></i> Pedidos Pendientes</h3>
+                    <p id="pedidos-pendientes">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-chart-line"></i> Ventas Hoy</h3>
+                    <p id="ventas-hoy">0</p>
+                </div>
+            </section>
+
+            <!-- Acciones rápidas -->
+            <section class="quick-actions">
+                <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <h3 style="margin-bottom: 20px; color: #1e3a5c;">Acciones Rápidas</h3>
+                    <div class="actions-grid">
+                        <a href="productos/crear.html" class="action-btn">
+                            <i class="fas fa-plus"></i>
+                            Nuevo Producto
+                        </a>
+                        <a href="usuarios/crear.html" class="action-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Nuevo Usuario
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>
