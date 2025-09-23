@@ -69,16 +69,19 @@
     </div>
 
     <script src="../js/admin.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Cargar total de productos desde localStorage
-            const productos = JSON.parse(localStorage.getItem('productos')) || [];
-            document.getElementById('total-productos').textContent = productos.length;
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cargar total de productos desde localStorage
+        const productos = JSON.parse(localStorage.getItem('productos')) || [];
+        document.getElementById('total-productos').textContent = productos.length;
 
-            // Cargar total de usuarios desde localStorage
-            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-            document.getElementById('total-usuarios').textContent = usuarios.length;
-        });
-    </script>
+        // Cargar total de usuarios combinando ambas fuentes
+        const usuariosAdmin = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const usuariosRegistro = JSON.parse(localStorage.getItem('users')) || []; // Cambia 'users' por la clave correcta
+        const todosLosUsuarios = [...usuariosAdmin, ...usuariosRegistro];
+        
+        document.getElementById('total-usuarios').textContent = todosLosUsuarios.length;
+    });
+</script>
 </body>
 </html>

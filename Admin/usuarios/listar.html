@@ -103,6 +103,28 @@
             color: #adb5bd;
             cursor: not-allowed;
         }
+        
+        /* Estilos para información adicional */
+        .user-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        .user-source {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        .source-admin {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .source-public {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
     </style>
 </head>
 <body>
@@ -126,6 +148,9 @@
         <main class="admin-main">
             <header class="admin-header">
                 <h1>Gestión de Usuarios</h1>
+                <div class="user-info">
+                    <span>Mostrando usuarios del sistema y registrados públicamente</span>
+                </div>
             </header>
 
             <div class="content-container">
@@ -143,6 +168,7 @@
                                 <th>Email</th>
                                 <th>Rol</th>
                                 <th>Estado</th>
+                                <th>Origen</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -159,34 +185,85 @@
 
     <script src="../js/admin.js"></script>
     <script>
-        // Cargar usuarios desde localStorage
-        function obtenerUsuarios() {
-            // Usuarios por defecto si no existen en localStorage
-            const defaultUsers = [
-                { id: 1, nombre: "Juan Pérez", email: "juan.perez@example.com", rol: "Administrador", estado: "Activo" },
-                { id: 2, nombre: "María García", email: "maria.garcia@example.com", rol: "Cliente", estado: "Activo" },
-                { id: 3, nombre: "Pedro López", email: "pedro.lopez@example.com", rol: "Cliente", estado: "Inactivo" },
-                { id: 4, nombre: "Ana Rodríguez", email: "ana.rodriguez@example.com", rol: "Cliente", estado: "Activo" },
-                { id: 5, nombre: "Carlos Sánchez", email: "carlos.sanchez@example.com", rol: "Cliente", estado: "Activo" },
-                { id: 6, nombre: "Sofía Torres", email: "sofia.torres@example.com", rol: "Cliente", estado: "Activo" },
-                { id: 7, nombre: "Luis Ramírez", email: "luis.ramirez@example.com", rol: "Cliente", estado: "Inactivo" },
-                { id: 8, nombre: "Laura Díaz", email: "laura.diaz@example.com", rol: "Cliente", estado: "Activo" },
-                { id: 9, nombre: "Ricardo Vargas", email: "ricardo.vargas@example.com", rol: "Cliente", estado: "Activo" },
-                { id: 10, nombre: "Elena Castro", email: "elena.castro@example.com", rol: "Cliente", estado: "Inactivo" }
-            ];
-
-            const usuarios = JSON.parse(localStorage.getItem('usuarios'));
+        // Función para migrar usuarios existentes (ejecutar una vez)
+        function migrarUsuarios() {
+            const usuariosAdmin = JSON.parse(localStorage.getItem('usuarios') || '[]');
+            const usuariosPublicos = JSON.parse(localStorage.getItem('users') || '[]');
             
-            // Si no hay usuarios en localStorage, los inicializamos con los datos por defecto
-            if (!usuarios) {
-                localStorage.setItem('usuarios', JSON.stringify(defaultUsers));
+            // Si hay datos en ambas claves, consolidarlos
+            if (usuariosAdmin.length > 0 && usuariosPublicos.length > 0) {
+                console.log('Migrando usuarios...');
+                
+                // Para evitar duplicados, verificar si ya existen usuarios en ambas listas
+                const todosUsuarios = [...usuariosAdmin, ...usuariosPublicos];
+                
+                // Separar por rol
+                const adminUsers = todosUsuarios.filter(u => u.rol === 'Administrador' || u.rol === 'Vendedor');
+                const clientUsers = todosUsuarios.filter(u => u.rol === 'Cliente' || !u.rol);
+                
+                localStorage.setItem('usuarios', JSON.stringify(adminUsers));
+                localStorage.setItem('users', JSON.stringify(clientUsers));
+                
+                console.log('Migración completada. Admin:', adminUsers.length, 'Clientes:', clientUsers.length);
+            }
+        }
+
+        // Cargar usuarios desde localStorage - UNIFICADO
+        function obtenerUsuarios() {
+            // Ejecutar migración primero
+            migrarUsuarios();
+            
+            // Combinar usuarios de ambas fuentes
+            const usuariosAdmin = JSON.parse(localStorage.getItem('usuarios') || '[]');
+            const usuariosPublicos = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Usuarios por defecto si no existen en localStorage
+            if (usuariosAdmin.length === 0 && usuariosPublicos.length === 0) {
+                const defaultUsers = [
+                    { id: 1, nombre: "Juan Pérez", email: "juan.perez@example.com", rol: "Administrador", estado: "Activo", origen: "admin" },
+                    { id: 2, nombre: "María García", email: "maria.garcia@example.com", rol: "Cliente", estado: "Activo", origen: "admin" },
+                    { id: 3, nombre: "Pedro López", email: "pedro.lopez@example.com", rol: "Cliente", estado: "Inactivo", origen: "admin" },
+                    { id: 4, nombre: "Ana Rodríguez", email: "ana.rodriguez@example.com", rol: "Cliente", estado: "Activo", origen: "admin" },
+                    { id: 5, nombre: "Carlos Sánchez", email: "carlos.sanchez@example.com", rol: "Cliente", estado: "Activo", origen: "admin" }
+                ];
+                
+                localStorage.setItem('usuarios', JSON.stringify(defaultUsers.filter(u => u.rol === 'Administrador')));
+                localStorage.setItem('users', JSON.stringify(defaultUsers.filter(u => u.rol === 'Cliente')));
+                
                 return defaultUsers;
             }
-            return usuarios;
+            
+            // Convertir usuarios públicos al formato del admin y marcar origen
+            const usuariosPublicosConvertidos = usuariosPublicos.map(user => ({
+                id: user.id,
+                nombre: user.nombre,
+                email: user.email,
+                rol: user.rol || 'Cliente',
+                estado: user.estado || 'Activo',
+                origen: 'publico',
+                telefono: user.telefono || '',
+                region: user.region || '',
+                comuna: user.comuna || '',
+                fechaRegistro: user.fechaRegistro || 'No especificada'
+            }));
+            
+            // Marcar origen de usuarios del admin
+            const usuariosAdminConOrigen = usuariosAdmin.map(user => ({
+                ...user,
+                origen: 'admin'
+            }));
+            
+            // Combinar ambos arrays
+            return [...usuariosAdminConOrigen, ...usuariosPublicosConvertidos];
         }
 
         function guardarUsuarios(usuarios) {
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            // Separar usuarios por tipo para guardar en las claves correctas
+            const usuariosAdmin = usuarios.filter(u => u.rol === 'Administrador' || u.rol === 'Vendedor');
+            const usuariosPublicos = usuarios.filter(u => u.rol === 'Cliente');
+            
+            localStorage.setItem('usuarios', JSON.stringify(usuariosAdmin));
+            localStorage.setItem('users', JSON.stringify(usuariosPublicos));
         }
 
         let currentPage = 1;
@@ -200,17 +277,38 @@
             const endIndex = startIndex + itemsPerPage;
             const itemsToShow = data.slice(startIndex, endIndex);
 
+            if (itemsToShow.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem;">
+                            No hay usuarios registrados en el sistema
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
             itemsToShow.forEach(usuario => {
                 const row = document.createElement('tr');
+                const origenTexto = usuario.origen === 'admin' ? 'Sistema' : 'Registro Público';
+                const origenClase = usuario.origen === 'admin' ? 'source-admin' : 'source-public';
+                
                 row.innerHTML = `
                     <td>${usuario.id}</td>
-                    <td>${usuario.nombre}</td>
+                    <td>
+                        ${usuario.nombre}
+                        <div class="user-info">
+                            ${usuario.telefono ? `Tel: ${usuario.telefono}` : 'Sin teléfono'}
+                            ${usuario.region ? ` | ${usuario.region}, ${usuario.comuna}` : ''}
+                        </div>
+                    </td>
                     <td>${usuario.email}</td>
                     <td>${usuario.rol}</td>
-                    <td><span style="color: ${usuario.estado === 'Activo' ? 'green' : 'red'};">${usuario.estado}</span></td>
+                    <td><span style="color: ${usuario.estado === 'Activo' ? 'green' : 'red'};">${usuario.estado || 'Activo'}</span></td>
+                    <td><span class="user-source ${origenClase}">${origenTexto}</span></td>
                     <td class="action-buttons">
                         <a href="editar.html?id=${usuario.id}" title="Editar"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn-delete" title="Eliminar" onclick="eliminarUsuario(${usuario.id}, event)"><i class="fas fa-trash-alt"></i></a>
+                        <a href="#" class="btn-delete" title="Eliminar" onclick="eliminarUsuario(${usuario.id}, '${usuario.origen}', event)"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -222,6 +320,26 @@
             paginationContainer.innerHTML = '';
             const totalPages = Math.ceil(data.length / itemsPerPage);
 
+            if (totalPages <= 1) return;
+
+            // Botón anterior
+            const prevLink = document.createElement('a');
+            prevLink.href = '#';
+            prevLink.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderizarTabla(data);
+                    renderizarPaginacion(data);
+                }
+            });
+            if (currentPage === 1) {
+                prevLink.classList.add('disabled');
+            }
+            paginationContainer.appendChild(prevLink);
+
+            // Números de página
             for (let i = 1; i <= totalPages; i++) {
                 const pageLink = document.createElement('a');
                 pageLink.href = '#';
@@ -237,9 +355,26 @@
                 });
                 paginationContainer.appendChild(pageLink);
             }
+
+            // Botón siguiente
+            const nextLink = document.createElement('a');
+            nextLink.href = '#';
+            nextLink.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderizarTabla(data);
+                    renderizarPaginacion(data);
+                }
+            });
+            if (currentPage === totalPages) {
+                nextLink.classList.add('disabled');
+            }
+            paginationContainer.appendChild(nextLink);
         }
         
-        function eliminarUsuario(id, event) {
+        function eliminarUsuario(id, origen, event) {
             event.preventDefault();
             if (confirm(`¿Estás seguro de que quieres eliminar al usuario con ID ${id}?`)) {
                 const usuarios = obtenerUsuarios();
@@ -254,6 +389,7 @@
         // Inicializar la tabla y la paginación al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             const usuarios = obtenerUsuarios();
+            console.log('Usuarios cargados:', usuarios);
             renderizarTabla(usuarios);
             renderizarPaginacion(usuarios);
         });

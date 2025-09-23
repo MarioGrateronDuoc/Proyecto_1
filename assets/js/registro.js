@@ -206,6 +206,7 @@ function validarFormulario() {
 }
 
 // Función para guardar usuario en localStorage
+// Función para guardar usuario en localStorage - CORREGIDA
 function guardarUsuario(usuarioData) {
     try {
         // Obtener usuarios existentes o crear array vacío
@@ -214,18 +215,24 @@ function guardarUsuario(usuarioData) {
         // Verificar si el email ya existe
         const usuarioExistente = usuarios.find(u => u.email === usuarioData.email);
         if (usuarioExistente) {
-            throw new Error('El correo electrónico ya está registrado');
+            mostrarNotificacion('❌ El correo electrónico ya está registrado', 'error');
+            return false;
         }
         
         // Agregar nuevo usuario
         usuarios.push(usuarioData);
         
-        // Guardar en localStorage
+        // Guardar en localStorage - CORREGIDO: usar 'users' en lugar de 'usuarios'
         localStorage.setItem('users', JSON.stringify(usuarios));
+        
+        // DEBUG: Verificar que se guardó
+        console.log('Usuario guardado:', usuarioData);
+        console.log('Total de usuarios registrados:', usuarios.length);
         
         return true;
     } catch (error) {
         console.error('Error al guardar usuario:', error);
+        mostrarNotificacion('❌ Error al registrar usuario', 'error');
         return false;
     }
 }

@@ -64,31 +64,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function attemptLogin() {
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
+function attemptLogin() {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
 
-        // Simulación de usuarios (esto vendría de una base de datos)
-        const users = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    // BUSCAR EN AMBAS FUENTES
+    const usuariosAdmin = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const usuariosPublicos = JSON.parse(localStorage.getItem('users') || '[]');
+    
+    // Combinar todos los usuarios
+    const todosLosUsuarios = [...usuariosAdmin, ...usuariosPublicos];
+    
+    console.log('=== DEBUG LOGIN ===');
+    console.log('Email ingresado:', email);
+    console.log('Usuarios admin:', usuariosAdmin);
+    console.log('Usuarios públicos:', usuariosPublicos);
+    console.log('Total usuarios:', todosLosUsuarios.length);
+    console.log('===================');
+    
+    // Buscar usuario en la lista combinada
+    const user = todosLosUsuarios.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        // Login exitoso
+        showNotification('¡Login exitoso! Bienvenido ' + user.nombre, 'success');
         
-        // Buscar usuario
-        const user = users.find(u => u.email === email && u.password === password);
+        // Guardar sesión del usuario
+        localStorage.setItem('currentUser', JSON.stringify({
+            ...user,
+            rol: user.rol || 'Cliente'
+        }));
         
-        if (user) {
-            // Login exitoso
-            showNotification('¡Login exitoso! Bienvenido ' + user.nombre, 'success');
-            
-            // Guardar sesión del usuario
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            
-            // Redirigir después de 1 segundo
-            setTimeout(() => {
-                redirectUser(user.rol);
-            }, 1000);
-        } else {
-            showNotification('Credenciales incorrectas. Verifica tu email y contraseña.', 'error');
-        }
+        // Redirigir después de 1 segundo
+        setTimeout(() => {
+            redirectUser(user.rol || 'Cliente');
+        }, 1000);
+    } else {
+        showNotification('Credenciales incorrectas. Verifica tu email y contraseña.', 'error');
     }
+}
 
     function redirectUser(userType) {
         switch(userType) {

@@ -89,15 +89,19 @@ function inicializarDatosEjemplo() {
 }
 
 // CARGAR ESTADÍSTICAS DESDE LOCALSTORAGE
+// CARGAR ESTADÍSTICAS DESDE LOCALSTORAGE
 function cargarEstadisticas() {
     try {
         // Productos
         const productos = JSON.parse(localStorage.getItem('productos')) || [];
         document.getElementById('total-productos').textContent = productos.length;
         
-        // Usuarios
-        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-        document.getElementById('total-usuarios').textContent = usuarios.length;
+        // Usuarios - Combinar usuarios de admin y registro
+        const usuariosAdmin = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const usuariosRegistro = JSON.parse(localStorage.getItem('users')) || []; // Cambia 'users' por la clave correcta
+        const todosLosUsuarios = [...usuariosAdmin, ...usuariosRegistro];
+        
+        document.getElementById('total-usuarios').textContent = todosLosUsuarios.length;
         
         // Pedidos pendientes (ejemplo)
         const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
