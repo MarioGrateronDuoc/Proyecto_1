@@ -4,31 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Store Web</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
-        :root {
-            --color-primary: #3498db;
-            --color-primary-dark: #2980b9;
-            --color-primary-light: #d6eaf8;
-            --color-white: #ffffff;
-            --color-gray-100: #f8f9fa;
-            --color-gray-200: #e9ecef;
-            --color-gray-300: #dee2e6;
-            --color-gray-600: #6c757d;
-            --color-gray-700: #495057;
-            --color-gray-800: #343a40;
-            --color-error: #e74c3c;
-            --border-radius: 8px;
-            --font-size-base: 1rem;
-            --font-size-sm: 0.875rem;
-            --spacing-1: 0.25rem;
-            --spacing-2: 0.5rem;
-            --spacing-3: 1rem;
-            --spacing-4: 1.5rem;
-            --spacing-5: 2rem;
-            --spacing-6: 2.5rem;
-            --spacing-8: 3rem;
-            --spacing-10: 5rem;
-        }
         
         * {
             margin: 0;
@@ -49,135 +27,7 @@
             padding: 0 20px;
         }
         
-        /* Header IDÉNTICO al de tu blog */
-        header {
-            background-color: var(--color-white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
-        }
         
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--color-gray-800);
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav li {
-            margin-left: 25px;
-        }
-        
-        nav a {
-            text-decoration: none;
-            color: var(--color-gray-800);
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 5px 0;
-        }
-        
-        nav a:hover {
-            color: var(--color-primary);
-        }
-        
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .cart-icon {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--color-gray-800);
-            font-weight: 500;
-            background-color: var(--color-gray-100);
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-        }
-        
-        .cart-count {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            margin-left: 5px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-        
-        .btn-primary {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--color-primary-dark);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: var(--color-primary);
-            border-color: var(--color-primary);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-        }
-        
-        /* Hero Section como tu blog */
-        .contact-hero {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-            color: var(--color-white);
-            padding: var(--spacing-10) 0;
-            text-align: center;
-        }
-
-        .contact-hero h1 {
-            font-size: 3rem;
-            margin-bottom: var(--spacing-4);
-        }
-
-        .contact-hero p {
-            font-size: 1.2rem;
-            margin-bottom: var(--spacing-6);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
         
         /* Contact Section - Estructura similar a blog-detail-page */
         .contact-page {
@@ -333,51 +183,7 @@
             font-size: 1rem;
         }
         
-        /* Footer IDÉNTICO al de tu blog */
-        footer {
-            background-color: var(--color-gray-800);
-            color: var(--color-white);
-            padding: var(--spacing-8) 0 0;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-6);
-            margin-bottom: var(--spacing-6);
-        }
-        
-        .footer-section h4 {
-            margin-bottom: var(--spacing-3);
-            color: var(--color-primary);
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section li {
-            margin-bottom: var(--spacing-2);
-        }
-        
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-section a:hover {
-            color: var(--color-white);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding: var(--spacing-3) 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             header .container {
